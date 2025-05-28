@@ -1,13 +1,19 @@
 class Materia():
     def __init__(self):
+        self.id_materia = 0
         self.nombre_materia = ""
         self.nombre_docente = ""
-        self.notas = [0,0,0,0,0],
         self.nota_min_aprobar = 0
         self.es_promocionable = False
         self.nota_min_promocion = 0
         self.cant_veces_final_rendible = 0
 
+    def get_id_materia(self):
+        return self.id_materia
+
+    def set_id_materia(self, id):
+        self.id_materia = id
+    
     def get_nombre_materia(self):
         return self.nombre_materia
 
@@ -19,12 +25,6 @@ class Materia():
     
     def set_nombre_docente(self, nombre):
         self.nombre_docente = nombre
-        
-    def get_notas(self):
-        return self.notas
-    
-    def set_notas(self, notas):
-        self.notas = notas
 
     def get_nota_min_aprobar(self):
         return self.nota_min_aprobar
