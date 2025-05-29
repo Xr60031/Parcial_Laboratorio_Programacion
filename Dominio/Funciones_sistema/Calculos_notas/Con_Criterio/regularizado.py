@@ -1,6 +1,6 @@
 from Dominio.Funciones_sistema.Calculos_notas.funcion_con_criterio import Funcion_Con_Criterio
 
-class Cursado(Funcion_Con_Criterio):
+class Regularizado(Funcion_Con_Criterio):
     def __init__(self):
         super().__init__()
 

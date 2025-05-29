@@ -1,5 +1,5 @@
 import unittest
-from Dominio.Funciones_sistema.Calculos_notas.Con_Criterio.cursado import Aprueba
+from Dominio.Funciones_sistema.Calculos_notas.Con_Criterio.regularizado import Aprueba
 from Dominio.Funciones_sistema.Calculos_notas.Sin_Criterio.promedio import Promedio
 from Dominio.Funciones_sistema.Calculos_notas.Con_Criterio.promociona import Promociona
 from Dominio.Funciones_sistema.Calculos_notas.funcion_sin_criterio import Funcion
