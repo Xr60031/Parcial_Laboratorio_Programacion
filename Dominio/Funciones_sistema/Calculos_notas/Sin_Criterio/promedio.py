@@ -1,6 +1,6 @@
-from Dominio.Funciones_sistema.Calculos_notas.funcion import Funcion
+from Dominio.Funciones_sistema.Calculos_notas.funcion_sin_criterio import Funcion_Sin_Crierio
 
-class Promedio(Funcion):
+class Promedio(Funcion_Sin_Crierio):
     def __init__(self):
         super().__init__()
 
