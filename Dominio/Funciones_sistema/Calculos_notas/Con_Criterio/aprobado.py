@@ -7,9 +7,9 @@ class Aprobado(Funcion_Con_Criterio):
     def operacion(self, notas, criterio):
         i = 0
         cant_notas = len(notas)
-        cursado = False
-        while i < cant_notas and cursado == False:
+        aprobado = False
+        while i < cant_notas and aprobado == False:
             if notas[i].valor_nota >= criterio:
-                    cursado = True
+                    aprobado = True
             i = i+1
-        return cursado
+        return aprobado

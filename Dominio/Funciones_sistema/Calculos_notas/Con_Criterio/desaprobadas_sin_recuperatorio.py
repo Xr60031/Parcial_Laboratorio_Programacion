@@ -1,6 +1,6 @@
 from Dominio.Funciones_sistema.Calculos_notas.funcion_con_criterio import Funcion_Con_Criterio
 
-class Desaprobadas_Con_Recuperatorio(Funcion_Con_Criterio):
+class Desaprobadas_Sin_Recuperatorio(Funcion_Con_Criterio):
     def __init__(self):
         super().__init__()
 

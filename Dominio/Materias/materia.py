@@ -7,6 +7,7 @@ class Materia():
         self.es_promocionable = False
         self.nota_min_promocion = 0
         self.cant_veces_final_rendible = 0
+        self.cant_parciales = 0
 
     def get_id_materia(self):
         return self.id_materia
@@ -49,3 +50,9 @@ class Materia():
     
     def set_cant_veces_rendible_final(self, cant):
         self.cant_veces_final_rendible = cant
+
+    def get_cant_parciales(self):
+        return self.cant_parciales
+    
+    def set_cant_parciales(self, cantidad):
+        self.cant_parciales = cantidad
