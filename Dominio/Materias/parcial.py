@@ -1,9 +1,9 @@
 from Dominio.Materias.nota import Nota
 
 class Parcial(Nota):
-    def __init__(self):
-        super().__init__()
-        self.valor_recuperatorio = 0
+    def __init__(self, tupla):
+        super().__init__(tupla)
+        self.valor_recuperatorio = None
 
     def get_valor_recuperatorio(self):
         return self.valor_recuperatorio

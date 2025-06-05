@@ -1,9 +1,3 @@
-from Dominio.Funciones_sistema.Calculos_notas.Con_Criterio.aprobado import Aprobado
-from Dominio.Funciones_sistema.Calculos_notas.Con_Criterio.desaprobadas_sin_recuperatorio import Desaprobadas_Sin_Recuperatorio
-from Dominio.Funciones_sistema.Calculos_notas.Con_Criterio.promociona import Promociona
-from Dominio.Funciones_sistema.Calculos_notas.Con_Criterio.intentos_final import Intentos_Final_Restante
-from Dominio.Funciones_sistema.Calculos_notas.Con_Criterio.regularizado import Regularizado
-from Dominio.Funciones_sistema.Calculos_notas.Con_Criterio.minima_cantidad_parciales import Minima_Cantidad_Parciales
 from Dominio.Funciones_sistema.Logica_negocio.enum_estado import Estado
 
 """
@@ -23,13 +17,19 @@ Funcion para finales
 """
 
 class Determinador_Estado():
-    def __init__(self):
-        self.aprobado = Aprobado()
-        self.desaprobadas_sin_recuperatorio = Desaprobadas_Sin_Recuperatorio()
-        self.promociona = Promociona()
-        self.intentos_final = Intentos_Final_Restante()
-        self.regularizado = Regularizado()
-        self.minima_cant_parciales = Minima_Cantidad_Parciales()
+    def __init__(self, 
+            aprobado, 
+            desaprobadas_sin_recuperatorio, 
+            promociona,
+            intentos_final_restante,
+            regularizado,
+            minima_cantidad_parciales):
+        self.aprobado = aprobado
+        self.desaprobadas_sin_recuperatorio = desaprobadas_sin_recuperatorio
+        self.promociona = promociona
+        self.intentos_final = intentos_final_restante
+        self.regularizado = regularizado
+        self.minima_cant_parciales = minima_cantidad_parciales
 
     def esta_cursando(self, notas_parciales, materia):
         return not self.minima_cant_parciales.operacion(notas_parciales, materia.cant_parciales) or self.desaprobadas_sin_recuperatorio.operacion(notas_parciales, materia.nota_min_aprobar)

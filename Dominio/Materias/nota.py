@@ -1,8 +1,8 @@
 class Nota():
-    def __init__(self):
-        self.id_nota = 0
-        self.id_materia = 0
-        self.valor_nota = 0
+    def __init__(self, tupla):
+        self.id_nota = tupla[0]
+        self.id_materia = tupla[1]
+        self.valor_nota = tupla[2]
 
     def get_id_nota(self):
         return self.id_nota

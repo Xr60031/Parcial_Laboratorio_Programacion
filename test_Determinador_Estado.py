@@ -3,20 +3,27 @@ from unittest.mock import MagicMock
 from Dominio.Funciones_sistema.Logica_negocio.determinador_estado import Determinador_Estado
 from Dominio.Funciones_sistema.Logica_negocio.enum_estado import Estado
 from Dominio.Materias.parcial import Parcial
+from Dominio.Materias.final import Final
 
 class TestDeterminadorEstado(unittest.TestCase):
     def setUp(self):
         self.determinador = Determinador_Estado()
         self.materia = MagicMock()
         parcial1 = Parcial()
-        parcial1.set_valor_nota(5)
+        parcial1.set_valor_nota(6)
         parcial2 = Parcial()
-        parcial2.set_valor_nota(9)
+        parcial2.set_valor_nota(7)
         parcial3 = Parcial()
-        parcial3.set_valor_nota(7)
+        parcial3.set_valor_nota(5)
         self.notas_parciales = [parcial1, parcial2, parcial3]
-        self.notas_parciales = [6, 7, 5]
-        self.notas_finales = [4]
+
+        final1 = Final()
+        final1.set_valor_nota(4)
+        final2 = Final()
+        final2.set_valor_nota(5)
+        final3 = Final()
+        final3.set_valor_nota(9)
+        self.notas_finales = [final1]
 
     def test_esta_cursando_minima_cant_parciales_falsa_y_desaprobadas_true(self):
         self.determinador.minima_cant_parciales.operacion = MagicMock(return_value=False)

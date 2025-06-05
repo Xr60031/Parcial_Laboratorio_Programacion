@@ -1,13 +1,13 @@
 class Materia():
-    def __init__(self):
-        self.id_materia = 0
-        self.nombre_materia = ""
-        self.nombre_docente = ""
-        self.nota_min_aprobar = 0
-        self.es_promocionable = False
-        self.nota_min_promocion = 0
-        self.cant_veces_final_rendible = 0
-        self.cant_parciales = 0
+    def __init__(self, tupla):
+        self.id_materia = tupla[0]
+        self.nombre_materia = tupla[1]
+        self.nombre_docente = tupla[2]
+        self.nota_min_aprobar = tupla[3]
+        self.es_promocionable = tupla[4]
+        self.nota_min_promocion = tupla[5]
+        self.cant_veces_final_rendible = tupla[6]
+        self.cant_parciales = tupla[7]
 
     def get_id_materia(self):
         return self.id_materia
