@@ -20,7 +20,7 @@ class Facade_Persistencia():
         self.cursor.execute("""
             SELECT name FROM sqlite_master
             WHERE type='table' AND name=?;
-        """, (nombre_tabla))
+        """, (nombre_tabla,))
     
         return self.cursor.fetchone() is not None
 
