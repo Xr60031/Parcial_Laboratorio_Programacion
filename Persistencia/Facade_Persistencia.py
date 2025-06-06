@@ -1,4 +1,5 @@
 import sqlite3
+import os
 from Dominio.Materias.final import Final
 from Dominio.Materias.parcial import Parcial
 from Dominio.Materias.materia import Materia
@@ -10,7 +11,12 @@ class Facade_Persistencia():
         self.conn = None
 
     def conectar(self):
-        self.conn = sqlite3.connect('Plantilla/plantilla.db')
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        db_folder = os.path.join(BASE_DIR, 'Plantilla')
+        os.makedirs(db_folder, exist_ok=True)  # Asegura que la carpeta exista
+
+        db_path = os.path.join(db_folder, 'plantilla.db')
+        self.conn = sqlite3.connect(db_path)
         self.cursor = self.conn.cursor()
 
     def desconectar(self):
