@@ -18,12 +18,12 @@ Funcion para finales
 
 class Determinador_Estado():
     def __init__(self, 
-            aprobado, 
-            desaprobadas_sin_recuperatorio, 
-            promociona,
-            intentos_final_restante,
-            regularizado,
-            minima_cantidad_parciales):
+            aprobado = None, 
+            desaprobadas_sin_recuperatorio = None, 
+            promociona = None,
+            intentos_final_restante = None,
+            regularizado = None,
+            minima_cantidad_parciales = None):
         self.aprobado = aprobado
         self.desaprobadas_sin_recuperatorio = desaprobadas_sin_recuperatorio
         self.promociona = promociona
