@@ -6,8 +6,8 @@ from Dominio.Materias.materia import Materia
 class Facade_Persistencia():
     def __init__(self):
         self
-        self.cursor
-        self.conn
+        self.cursor = None
+        self.conn = None
 
     def conectar(self):
         self.conn = sqlite3.connect('Plantilla/plantilla.db')
@@ -65,6 +65,11 @@ class Facade_Persistencia():
                 '''
             )
             self.conn.commit()
+
+    def crear_base(self):
+        self.crear_tabla_materia()
+        self.crear_tabla_parcial()
+        self.crear_tabla_final()
 
     def eliminar_base(self):
         for tabla in ["Materia", "Parcial", "Final"]:
