@@ -44,4 +44,4 @@ class TestDesaprobadasSinRecuperatorio(unittest.TestCase):
         self.assertFalse(resultado)
 
 if __name__ == '__main__':
-    unittest.main(verbosity=2)
+    unittest.main()

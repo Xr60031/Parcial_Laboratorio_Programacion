@@ -25,6 +25,11 @@ class TestIntentosFinalRestante(unittest.TestCase):
         resultado = self.funcion.operacion(notas, 3)
         self.assertEqual(resultado, -1)
 
+    def test_con_notas_igual_que_criterio(self):
+        notas = [Mock(), Mock(), Mock()]
+        resultado = self.funcion.operacion(notas, 3)
+        self.assertEqual(resultado, 0)
+
     def test_con_criterio_cero(self):
         notas = [Mock()]
         resultado = self.funcion.operacion(notas, 0)

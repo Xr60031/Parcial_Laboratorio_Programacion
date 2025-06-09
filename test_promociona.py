@@ -34,7 +34,7 @@ class TestPromociona(unittest.TestCase):
 
     def test_lista_vacia(self):
         resultado = self.funcion.operacion([], 6)
-        self.assertTrue(resultado)
+        self.assertFalse(resultado)
 
     def test_todas_malas(self):
         notas = [

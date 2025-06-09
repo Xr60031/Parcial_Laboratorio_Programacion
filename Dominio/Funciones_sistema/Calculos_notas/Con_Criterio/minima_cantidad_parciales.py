@@ -5,4 +5,4 @@ class Minima_Cantidad_Parciales(Funcion_Con_Criterio):
         super().__init__()
 
     def operacion(self, notas, criterio):
-        return len(notas) < criterio
+        return len(notas) >= criterio
