@@ -1,4 +1,5 @@
-from Calculos_notas.Con_Criterio.intentos_final import Intentos_Final_Restante
+from Dominio.Funciones_sistema.Calculos_notas.Con_Criterio.intentos_final import Intentos_Final_Restante
+
 
 class Indicador_Cantidad_Finales_Restantes():
     def __init__(self):
