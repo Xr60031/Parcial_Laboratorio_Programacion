@@ -1,4 +1,4 @@
-from accion import Accion
+from  Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
 
 class Mostrar(Accion):
     def __init__(self):
