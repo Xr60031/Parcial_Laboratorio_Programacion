@@ -50,7 +50,7 @@ class TestRegularizado(unittest.TestCase):
 
     def test_lista_vacia(self):
         resultado = self.funcion.operacion([], 6)
-        self.assertTrue(resultado)
+        self.assertFalse(resultado)
 
 if __name__ == '__main__':
     unittest.main()

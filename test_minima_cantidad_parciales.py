@@ -8,27 +8,27 @@ class TestMinimaCantidadParciales(unittest.TestCase):
 
     def test_sin_notas(self):
         resultado = self.funcion.operacion([], 2)
-        self.assertTrue(resultado)
+        self.assertFalse(resultado)
 
     def test_menos_notas_que_criterio(self):
         notas = [Mock()]
-        resultado = self.funcion.operacion(notas, 3)
-        self.assertTrue(resultado)
+        resultado = self.funcion.operacion(notas, 2)
+        self.assertFalse(resultado)
 
     def test_igual_cantidad_que_criterio(self):
         notas = [Mock(), Mock()]
         resultado = self.funcion.operacion(notas, 2)
-        self.assertFalse(resultado)
+        self.assertTrue(resultado)
 
     def test_mas_notas_que_criterio(self):
         notas = [Mock(), Mock(), Mock()]
         resultado = self.funcion.operacion(notas, 2)
-        self.assertFalse(resultado)
+        self.assertTrue(resultado)
 
     def test_criterio_cero(self):
         notas = [Mock()]
         resultado = self.funcion.operacion(notas, 0)
-        self.assertFalse(resultado)
+        self.assertTrue(resultado)
 
 if __name__ == '__main__':
     unittest.main()

@@ -11,6 +11,6 @@ class Promociona(Funcion_Con_Criterio):
         while i < cant_notas and promociona == True:
             if notas[i].valor_nota < criterio:
                 promociona = False
-            i = i+1
+            i += 1
 
-        return promociona
+        return promociona and cant_notas > 0

@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, Mock
 from Dominio.Funciones_sistema.Logica_negocio.determinador_estado import Determinador_Estado
 from Dominio.Funciones_sistema.Logica_negocio.enum_estado import Estado
 
@@ -31,15 +31,15 @@ class TestDeterminadorEstado(unittest.TestCase):
         )
 
         self.materia = DummyMateria()
-        self.notas_parciales = [5, 6]
-        self.notas_finales = [7]
+        self.notas_parciales = [Mock(valor_nota=5), Mock(valor_nota=6)]
+        self.notas_finales = [Mock(valor_nota=7)]
 
     def test_esta_cursando_por_minima_cant_parciales_false(self):
         self.minima_cant_parciales.operacion.return_value = False
         self.desaprobadas_sin_recuperatorio.operacion.return_value = False
         self.assertTrue(self.det.esta_cursando(self.notas_parciales, self.materia))
 
-    def test_esta_cursando_por_desaprobadas_true(self):
+    def test_esta_cursando_por_desaprobadas_sin_recuperatorio_true(self):
         self.minima_cant_parciales.operacion.return_value = True
         self.desaprobadas_sin_recuperatorio.operacion.return_value = True
         self.assertTrue(self.det.esta_cursando(self.notas_parciales, self.materia))

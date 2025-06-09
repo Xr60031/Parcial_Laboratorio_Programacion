@@ -12,5 +12,5 @@ class Regularizado(Funcion_Con_Criterio):
             if notas[i].valor_nota < criterio:
                 if not notas[i].valor_recuperatorio or notas[i].valor_recuperatorio < criterio:
                     cursado = False
-            i = i+1
-        return cursado
+            i += 1
+        return cursado and cant_notas > 0

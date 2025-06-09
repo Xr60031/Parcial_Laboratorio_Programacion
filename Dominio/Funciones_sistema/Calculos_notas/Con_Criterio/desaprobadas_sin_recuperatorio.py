@@ -10,4 +10,5 @@ class Desaprobadas_Sin_Recuperatorio(Funcion_Con_Criterio):
         while(i < len(notas) and desaprobada_sin_recuperatorio == False):
             if(notas[i].valor_nota < criterio and not notas[i].valor_recuperatorio):
                 desaprobada_sin_recuperatorio = True
+            i += 1
         return desaprobada_sin_recuperatorio

@@ -137,8 +137,8 @@ class Facade_Persistencia():
                 id_nota,
                 id_materia,
                 valor_nota
-            ) VALUES (?, ?, ?) ''',
-            (parcial.get_id_nota() or "NULL", 
+            ) VALUES (NULL, ?, ?) ''',
+            (
                 parcial.get_id_materia(),
                 parcial.get_valor_nota())
             )
@@ -168,8 +168,8 @@ class Facade_Persistencia():
                 id_nota,
                 id_materia,
                 valor_nota
-            ) VALUES (?, ?, ?) ''',
-            (final.get_id_nota() or "NULL", 
+            ) VALUES (NULL, ?, ?) ''',
+            ( 
                 final.get_id_materia(),
                 final.get_valor_nota())
             )

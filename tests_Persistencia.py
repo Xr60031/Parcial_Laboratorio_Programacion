@@ -23,13 +23,13 @@ class TestFacadePersistencia(unittest.TestCase):
 
         # Mock de parcial
         self.mock_parcial = MagicMock()
-        self.mock_parcial.get_id_nota.return_value = 101
+        self.mock_parcial.get_id_nota.return_value = None
         self.mock_parcial.get_id_materia.return_value = 1
         self.mock_parcial.get_valor_nota.return_value = 7
 
         # Mock de final
         self.mock_final = MagicMock()
-        self.mock_final.get_id_nota.return_value = 201
+        self.mock_final.get_id_nota.return_value = None
         self.mock_final.get_id_materia.return_value = 1
         self.mock_final.get_valor_nota.return_value = 8
 
@@ -63,8 +63,8 @@ class TestFacadePersistencia(unittest.TestCase):
     def test_modificar_parcial(self):
         self.facade.agregar_materia(self.mock_materia)
         self.facade.agregar_parcial(self.mock_parcial)
-        self.facade.modificar_parcial(101, "valor_nota", 9)
-        self.facade.cursor.execute("SELECT valor_nota FROM Parcial WHERE id_nota = 101")
+        self.facade.modificar_parcial(1, "valor_nota", 9)
+        self.facade.cursor.execute("SELECT valor_nota FROM Parcial WHERE id_nota = 1")
         valor = self.facade.cursor.fetchone()[0]
         self.assertEqual(valor, 9)
 
@@ -74,19 +74,19 @@ class TestFacadePersistencia(unittest.TestCase):
         finales = self.facade.obtener_finales(self.mock_materia)
         self.assertEqual(len(finales), 1)
 
-        self.facade.eliminar_final(201)
+        self.facade.eliminar_final(1)
         finales = self.facade.obtener_finales(self.mock_materia)
         self.assertEqual(len(finales), 0)
 
     def test_recuperatorio(self):
         self.facade.agregar_materia(self.mock_materia)
         self.facade.agregar_parcial(self.mock_parcial)
-        self.facade.agregar_recuperatorio(101, 10)
-        self.facade.cursor.execute("SELECT valor_recuperatorio FROM Parcial WHERE id_nota = 101")
+        self.facade.agregar_recuperatorio(1, 10)
+        self.facade.cursor.execute("SELECT valor_recuperatorio FROM Parcial WHERE id_nota = 1")
         self.assertEqual(self.facade.cursor.fetchone()[0], 10)
 
-        self.facade.eliminar_recuperatorio(101)
-        self.facade.cursor.execute("SELECT valor_recuperatorio FROM Parcial WHERE id_nota = 101")
+        self.facade.eliminar_recuperatorio(1)
+        self.facade.cursor.execute("SELECT valor_recuperatorio FROM Parcial WHERE id_nota = 1")
         self.assertIsNone(self.facade.cursor.fetchone()[0])
 
 if __name__ == '__main__':
