@@ -1,4 +1,4 @@
-from funcion_con_criterio import Funcion_Con_Criterio
+from Dominio.Funciones_sistema.Calculos_notas.funcion_con_criterio import Funcion_Con_Criterio
 
 class Intentos_Final_Restante(Funcion_Con_Criterio):
     def __init__(self):

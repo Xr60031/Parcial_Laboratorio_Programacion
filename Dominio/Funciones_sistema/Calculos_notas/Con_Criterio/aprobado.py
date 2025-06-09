@@ -10,6 +10,6 @@ class Aprobado(Funcion_Con_Criterio):
         aprobado = False
         while i < cant_notas and aprobado == False:
             if notas[i].valor_nota >= criterio:
-                    aprobado = True
+                aprobado = True
             i = i+1
         return aprobado
