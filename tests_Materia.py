@@ -1,43 +1,65 @@
 import unittest
 from Dominio.Materias.materia import Materia
 
-class Test_Materia(unittest.TestCase):
-    
-    def test_get_set_nombre_materia(self):
-        materia = Materia()
-        materia.set_nombre_materia("Matemática")
-        self.assertEqual(materia.get_nombre_materia(), "Matemática")
+class TestMateria(unittest.TestCase):
 
-    def test_get_set_nombre_docente(self):
-        materia = Materia()
-        materia.set_nombre_docente("Prof. García")
-        self.assertEqual(materia.get_nombre_docente(), "Prof. García")
+    def setUp(self):
+        self.datos = (
+            1,                    # id_materia
+            "Matemática",         # nombre_materia
+            "Prof. López",        # nombre_docente
+            4.0,                  # nota_min_aprobar
+            True,                 # es_promocionable
+            7.0,                  # nota_min_promocion
+            3,                    # cant_veces_final_rendible
+            2                     # cant_parciales
+        )
+        self.materia = Materia(self.datos)
 
-    def test_get_set_notas(self):
-        materia = Materia()
-        notas = [7, 8, 6, 9, 10]
-        materia.set_notas(notas)
-        self.assertEqual(materia.get_notas(), notas)
+    def test_constructor(self):
+        self.assertEqual(self.materia.id_materia, self.datos[0])
+        self.assertEqual(self.materia.nombre_materia, self.datos[1])
+        self.assertEqual(self.materia.nombre_docente, self.datos[2])
+        self.assertEqual(self.materia.nota_min_aprobar, self.datos[3])
+        self.assertEqual(self.materia.es_promocionable, self.datos[4])
+        self.assertEqual(self.materia.nota_min_promocion, self.datos[5])
+        self.assertEqual(self.materia.cant_veces_final_rendible, self.datos[6])
+        self.assertEqual(self.materia.cant_parciales, self.datos[7])
 
-    def test_get_set_nota_min_aprobar(self):
-        materia = Materia()
-        materia.set_nota_min_aprobar(6)
-        self.assertEqual(materia.get_nota_min_aprobar(), 6)
+    def test_getters(self):
+        self.assertEqual(self.materia.get_id_materia(), 1)
+        self.assertEqual(self.materia.get_nombre_materia(), "Matemática")
+        self.assertEqual(self.materia.get_nombre_docente(), "Prof. López")
+        self.assertEqual(self.materia.get_nota_min_aprobar(), 4.0)
+        self.assertEqual(self.materia.get_es_promocionable(), True)
+        self.assertEqual(self.materia.get_nota_min_promocion(), 7.0)
+        self.assertEqual(self.materia.get_cant_veces_rendible_final(), 3)
+        self.assertEqual(self.materia.get_cant_parciales(), 2)
 
-    def test_get_set_es_promocionable(self):
-        materia = Materia()
-        materia.set_es_promocionable(True)
-        self.assertTrue(materia.get_es_promocionable())
+    def test_setters(self):
+        self.materia.set_id_materia(2)
+        self.assertEqual(self.materia.get_id_materia(), 2)
 
-    def test_get_set_nota_min_promocion(self):
-        materia = Materia()
-        materia.set_nota_min_promocion(8)
-        self.assertEqual(materia.get_nota_min_promocion(), 8)
+        self.materia.set_nombre_materia("Física")
+        self.assertEqual(self.materia.get_nombre_materia(), "Física")
 
-    def test_get_set_cant_veces_rendible_final(self):
-        materia = Materia()
-        materia.set_cant_veces_rendible_final(3)
-        self.assertEqual(materia.get_cant_veces_rendible_final(), 3)
+        self.materia.set_nombre_docente("Prof. García")
+        self.assertEqual(self.materia.get_nombre_docente(), "Prof. García")
 
-if __name__ == "__main__":
+        self.materia.set_nota_min_aprobar(5.0)
+        self.assertEqual(self.materia.get_nota_min_aprobar(), 5.0)
+
+        self.materia.set_es_promocionable(False)
+        self.assertEqual(self.materia.get_es_promocionable(), False)
+
+        self.materia.set_nota_min_promocion(8.0)
+        self.assertEqual(self.materia.get_nota_min_promocion(), 8.0)
+
+        self.materia.set_cant_veces_rendible_final(4)
+        self.assertEqual(self.materia.get_cant_veces_rendible_final(), 4)
+
+        self.materia.set_cant_parciales(3)
+        self.assertEqual(self.materia.get_cant_parciales(), 3)
+
+if __name__ == '__main__':
     unittest.main()
