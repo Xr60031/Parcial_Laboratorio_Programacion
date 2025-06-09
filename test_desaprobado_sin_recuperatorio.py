@@ -7,34 +7,34 @@ class TestDesaprobadasSinRecuperatorio(unittest.TestCase):
         self.funcion = Desaprobadas_Sin_Recuperatorio()
 
     def test_una_nota_desaprobada_sin_recuperatorio(self):
-        nota = Mock(valor_nota=3, valor_recuperatorio=False)
+        nota = Mock(valor_nota=3, valor_recuperatorio=None)
         resultado = self.funcion.operacion([nota], 6)
         self.assertTrue(resultado)
 
     def test_una_nota_desaprobada_con_recuperatorio(self):
-        nota = Mock(valor_nota=3, valor_recuperatorio=True)
+        nota = Mock(valor_nota=3, valor_recuperatorio=7)
         resultado = self.funcion.operacion([nota], 6)
         self.assertFalse(resultado)
 
     def test_nota_aprobada(self):
-        nota = Mock(valor_nota=7, valor_recuperatorio=False)
+        nota = Mock(valor_nota=7, valor_recuperatorio=None)
         resultado = self.funcion.operacion([nota], 6)
         self.assertFalse(resultado)
 
     def test_varias_notas_una_desaprobada_sin_recuperatorio(self):
         notas = [
-            Mock(valor_nota=7, valor_recuperatorio=False),
-            Mock(valor_nota=4, valor_recuperatorio=False),
-            Mock(valor_nota=5, valor_recuperatorio=True)
+            Mock(valor_nota=7, valor_recuperatorio=None),
+            Mock(valor_nota=4, valor_recuperatorio=None),
+            Mock(valor_nota=5, valor_recuperatorio=7)
         ]
         resultado = self.funcion.operacion(notas, 6)
         self.assertTrue(resultado)
 
     def test_varias_notas_ninguna_cumple_condicion(self):
         notas = [
-            Mock(valor_nota=7, valor_recuperatorio=False),
-            Mock(valor_nota=5, valor_recuperatorio=True),
-            Mock(valor_nota=6, valor_recuperatorio=False)
+            Mock(valor_nota=7, valor_recuperatorio=None),
+            Mock(valor_nota=5, valor_recuperatorio=7),
+            Mock(valor_nota=6, valor_recuperatorio=None)
         ]
         resultado = self.funcion.operacion(notas, 6)
         self.assertFalse(resultado)
