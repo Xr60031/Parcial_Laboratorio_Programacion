@@ -1,10 +1,10 @@
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
 
 class Modificar_Parcial(Accion):
-    def __init__(self, main, id_materia, id_nota):
+    def __init__(self, main, materia, nota):
         super().__init__(main)
-        self.id_materia_seleccionada = id_materia
-        self.id_parcial_seleccionado = id_nota
+        self.materia_seleccionada = materia
+        self.parcial_seleccionado = nota
         self.acciones_disponibles = {
             "V": self.valor_nota_seleccionado,
             "R": self.valor_recuperatorio_seleccionado,
@@ -12,13 +12,13 @@ class Modificar_Parcial(Accion):
         }
 
     def valor_nota_seleccionado(self):
-        self.main.accion = ValorNotaSeleccionado(self.main, self.id_materia_seleccionada, self.id_parcial_seleccionado)
+        self.main.accion = ValorNotaSeleccionado(self.main, self.materia_seleccionada, self.parcial_seleccionado)
 
     def valor_recuperatorio_seleccionado(self):
-        self.main.accion = ValorRecuperatorioSeleccionado(self.main, self.id_materia_seleccionada, self.id_parcial_seleccionado)
+        self.main.accion = ValorRecuperatorioSeleccionado(self.main, self.materia_seleccionada, self.parcial_seleccionado)
 
     def volver(self):
-        self.main.accion = Modificar(self.main, self.id_materia_seleccionada)
+        self.main.accion = Modificar(self.main, self.materia_seleccionada)
 
     def hacer_accion(self):
         accion_elegida = self.main.cli.obtener_dato(

@@ -18,7 +18,7 @@ class Mostrar(Accion):
         self.main.accion = Borrar_Base(self.main)
 
     def cambiar_a_seleccionar(self, id_materia_elegida, materias):
-        self.main.accion = Seleccionar(self.main, id_materia_elegida)
+        self.main.accion = Seleccionar(self.main, materias[id_materia_elegida]) #not really
 
     def salir(self):
         sys.exit(0)
@@ -46,7 +46,7 @@ class Mostrar(Accion):
         )
 
         if type(resultado) == int:
-            self.cambiar_a_seleccionar(resultado)
+            self.cambiar_a_seleccionar(resultado, materias)
         else:
             self.ACCIONES_DISPONIBLES[resultado.upper()]()
 

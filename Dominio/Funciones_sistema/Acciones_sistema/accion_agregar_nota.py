@@ -1,9 +1,9 @@
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
 
 class Agregar_Nota(Accion):
-    def __init__(self, main, id_materia):
+    def __init__(self, main, materia):
         super().__init__(main)
-        self.id_materia_seleccionada = id_materia
+        self.materia_seleccionada = materia
         self.ACCIONES_DISPONIBLES = {
             "P": self.agregar_parcial,
             "F": self.agregar_final,
@@ -12,16 +12,16 @@ class Agregar_Nota(Accion):
         }
 
     def agregar_parcial(self):
-        self.main.accion = Agregar_Parcial(self.main, self.id_materia_seleccionada)
+        self.main.accion = Agregar_Parcial(self.main, self.materia_seleccionada)
 
     def agregar_final(self):
-        self.main.accion = Agregar_Final(self.main, self.id_materia_seleccionada)
+        self.main.accion = Agregar_Final(self.main, self.materia_seleccionada)
 
     def agregar_recuperatorio(self):
-        self.main.accion = Agregar_Recuperatorio(self.main, self.id_materia_seleccionada)
+        self.main.accion = Agregar_Recuperatorio(self.main, self.materia_seleccionada)
 
     def volver(self):
-        self.main.accion = Seleccionar(self.main, self.id_materia_seleccionada)
+        self.main.accion = Seleccionar(self.main, self.materia_seleccionada)
 
     def hacer_accion(self):
         accion_elegida = self.main.cli.obtener_dato(
