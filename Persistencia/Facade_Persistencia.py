@@ -39,7 +39,7 @@ class Facade_Persistencia():
                     nombre_docente TEXT NOT NULL,
                     nota_min_aprobar INTEGER NOT NULL,
                     es_promocionable BOOLEAN NOT NULL,
-                    nota_min_promocion INTEGER NOT NULL,
+                    nota_min_promocion INTEGER,
                     cant_veces_final_rendible INTEGER NOT NULL,
                     cant_parciales INTEGER NOT NULL
                 )

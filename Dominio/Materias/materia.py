@@ -45,10 +45,10 @@ class Materia():
     def set_nota_min_promocion(self, nota_minima):
         self.nota_min_promocion = nota_minima
 
-    def get_cant_veces_rendible_final(self):
+    def get_cant_veces_final_rendible(self):
         return self.cant_veces_final_rendible
     
-    def set_cant_veces_rendible_final(self, cant):
+    def set_cant_veces_final_rendible(self, cant):
         self.cant_veces_final_rendible = cant
 
     def get_cant_parciales(self):

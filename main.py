@@ -9,7 +9,7 @@ class Main():
         self.persistencia = Facade_Persistencia()
         self.builder_determinador = Builder_Determinador()
         self.cli = CLI()
-        self.accion = Mostrar()
+        self.accion = Mostrar(self)
 
     def main(self):
 
@@ -17,7 +17,7 @@ class Main():
         self.persistencia.crear_base()  
 
         while(True):
-            self.accion.hacer_accion(self)
+            self.accion.hacer_accion()
 
 if __name__ == "__main__":
     main_ = Main()
