@@ -1,28 +1,52 @@
-from  Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
+import sys
+from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
+from Dominio.Funciones_sistema.Acciones_sistema.accion_borrar_base import Borrar_Base
 
 class Mostrar(Accion):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, main):
+        super().__init__(main)
+        self.ACCIONES_DISPONIBLES = {
+            "A": self.cambiar_a_agregar,
+            "B": self.cambiar_a_borrar_base,
+            "X": self.salir
+        }
+    
+    def cambiar_a_agregar(self):
+        self.main.accion = Agregar(self.main)
 
-    def hacer_accion(self, main):
-        materias = main.persistencia.obtener_materias()
+    def cambiar_a_borrar_base(self):
+        self.main.accion = Borrar_Base(self.main)
+
+    def cambiar_a_seleccionar(self, id_materia_elegida, materias):
+        self.main.accion = Seleccionar(self.main, id_materia_elegida)
+
+    def salir(self):
+        sys.exit(0)
+
+    def hacer_accion(self):
+        materias = self.main.persistencia.obtener_materias()
         for materia in materias:
-            parciales = main.persistencia.obtener_parciales(materia)
-            finales = main.persistencia.obtener_finales(materia)
+            parciales = self.main.persistencia.obtener_parciales(materia)
+            finales = self.main.persistencia.obtener_finales(materia)
 
-            main.builder_determinador.construir()
-            determinador = main.builder_determinador.get_resultado()
-            main.builder_determinador.reset()
+            self.main.builder_determinador.construir()
+            determinador = self.main.builder_determinador.get_resultado()
+            self.main.builder_determinador.reset()
 
             estado_materia = determinador.consultar_estado(parciales, finales, materia)
 
-            main.cli.mostrar_datos([
+            self.main.cli.mostrar_datos([
                 materia.get_id_materia(),
                 materia.get_nombre_materia(),
                 estado_materia.name
-            ]
-            )
+            ])
 
-            main.cli.obtener_dato(
-                "Accion (Agregar, Eliminar, Mas informacion): "
-            )
+        resultado = self.main.cli.obtener_dato(
+            "Acción (A = Agregar, B = Borrar base, [cod_materia] = Seleccionar, X = Salir): "
+        )
+
+        if type(resultado) == int:
+            self.cambiar_a_seleccionar(resultado)
+        else:
+            self.ACCIONES_DISPONIBLES[resultado.upper()]()
+
