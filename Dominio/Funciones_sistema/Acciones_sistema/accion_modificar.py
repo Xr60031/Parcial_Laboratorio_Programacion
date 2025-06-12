@@ -1,13 +1,11 @@
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
-from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_parcial import Modificar_Parcial
-from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_atributo import Modificar_Atributo
-from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
 
 class Modificar(Accion):
     def __init__(self, main, materia):
         super().__init__(main)
         self.materia_seleccionada = materia
         self.ATRIBUTOS_DISPONIBLES = [
+            "id_materia",
             "nombre_materia",
             "nombre_docente",
             "nota_min_aprobar",
@@ -21,7 +19,7 @@ class Modificar(Accion):
         notas = self.main.persistencia.obtener_parciales(self.materia_seleccionada)
 
         self.main.cli.mostrar_datos([
-            "ID", "VAL", "REC"
+            "ID", "Nota", "Recuperatorio"
         ])
 
         for nota in notas:
@@ -30,15 +28,18 @@ class Modificar(Accion):
             ])
 
         id_nota = self.main.cli.obtener_dato(
-            "ID del parcial a modificar: "
+            "ID del parcial a modificar"
         )
 
-        self.main.accion = Modificar_Parcial(self.main, self.materia_seleccionada, id_nota)
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_parcial import Modificar_Parcial
+        self.main.accion = Modificar_Parcial(self.main, self.materia_seleccionada, int(id_nota))
 
     def cambiar_a_modificar_atributo(self, atributo):
-        self.main.accion = Modificar_Atributo(atributo)
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_atributo import Modificar_Atributo
+        self.main.accion = Modificar_Atributo(self.main, self.materia_seleccionada, atributo)
 
     def volver(self):
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
         self.main.accion = Seleccionar(self.main, self.materia_seleccionada)
 
     def hacer_accion(self):
@@ -48,7 +49,7 @@ class Modificar(Accion):
 
         for i in range(len(self.ATRIBUTOS_DISPONIBLES)):
             self.main.cli.mostrar_datos([
-                i+1, self.ATRIBUTOS_DISPONIBLES[i]
+                i, self.ATRIBUTOS_DISPONIBLES[i]
             ])
         
         self.main.cli.mostrar_datos([
@@ -60,12 +61,14 @@ class Modificar(Accion):
         ])
 
         accion_elegida = self.main.cli.obtener_dato(
-            "Atributo a modificar (X = Volver): "
+            "Atributo a modificar (X = Volver)"
         )
         
         if accion_elegida.upper() == "P":
             self.modificar_parcial()
         elif accion_elegida.upper() == "X":
             self.volver()
-        else:
+        elif accion_elegida.upper() == "F":
             self.cambiar_a_modificar_atributo(accion_elegida)
+        else:
+            self.cambiar_a_modificar_atributo(self.ATRIBUTOS_DISPONIBLES[int(accion_elegida)])

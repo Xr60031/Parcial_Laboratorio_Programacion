@@ -1,7 +1,4 @@
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
-from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar_nota import Agregar_Nota
-from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
-from Dominio.Materias.parcial import Parcial
 
 class Agregar_Recuperatorio(Accion):
     def __init__(self, main, materia):
@@ -9,17 +6,22 @@ class Agregar_Recuperatorio(Accion):
         self.materia_seleccionada = materia
 
     def agregar_recuperatorio(self, id_nota, valor):
-        self.main.persistencia.modificar_parcial(id_nota, "valor_recuperatorio", valor)
+        self.main.persistencia.agregar_recuperatorio(id_nota, valor)
+        self.main.cli.mostrar_datos([
+            "Recuperatorio agregado."
+        ])
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
         self.main.accion = Seleccionar(self.main, self.materia_seleccionada)
 
     def volver(self):
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar_nota import Agregar_Nota
         self.main.accion = Agregar_Nota(self.main, self.materia_seleccionada)
 
     def hacer_accion(self):
         notas = self.main.persistencia.obtener_parciales(self.materia_seleccionada)
 
         self.main.cli.mostrar_datos([
-            "ID", "VAL"
+            "ID", "Nota"
         ])
 
         for nota in notas:
@@ -29,14 +31,14 @@ class Agregar_Recuperatorio(Accion):
                 ])
 
         id_nota = self.main.cli.obtener_dato(
-            "ID del parcial a agregar recuperatorio: "
+            "ID del parcial a agregar recuperatorio"
         )
         
         valor = self.main.cli.obtener_dato(
-            "Nota del parcial (X = Volver): "
+            "Nota del recuperatorio (X = Volver)"
         )
 
         if valor.upper() != "X":
-            self.agregar_recuperatorio(id_nota, valor)
+            self.agregar_recuperatorio(int(id_nota), int(valor))
         else:
             self.volver()

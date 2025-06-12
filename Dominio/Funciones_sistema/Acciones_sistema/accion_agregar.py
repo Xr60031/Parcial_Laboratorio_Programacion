@@ -1,11 +1,10 @@
-from Dominio.Materias.materia import Materia
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
-from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar import Mostrar
+from Dominio.Materias.materia import Materia
 
 class Agregar(Accion):
     def __init__(self, main):
         super().__init__(main)
-        self.DATOS = [
+        self.ATRIBUTOS = [
             "Código de la materia",
             "Nombre de la materia",
             "Nombre completo del docente",
@@ -17,28 +16,29 @@ class Agregar(Accion):
         ]
     
     def cambiar_a_mostrar(self):
-        self.main.accion = Mostrar(self.main)
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar_tabla import Mostrar_Tabla
+        self.main.accion = Mostrar_Tabla(self.main)
 
     def hacer_accion(self):
         self.main.cli.mostrar_datos([
             "Ingrese los datos a medida que se piden (X = Volver)"
         ])
 
-        datos = tuple()
+        datos = []
         
-        for i in range(len(self.DATOS)):
-            respuesta = self.main.cli.obtener_dato(
-                self.DATOS[i] + ": "
+        for atributo in self.ATRIBUTOS:
+            dato = self.main.cli.obtener_dato(
+                atributo
             )
 
-            if respuesta.upper() != "X":
-                datos[i] = respuesta
+            if dato.upper() != "X":
+                datos.append(dato)
             else:
                 self.cambiar_a_mostrar()
         
-        nueva_materia = Materia(datos)
+        nueva_materia = Materia(tuple(datos))
 
-        self.main.cli.agregar_materia(nueva_materia)
+        self.main.persistencia.agregar_materia(nueva_materia)
 
         self.main.cli.mostrar_datos([
             "¡Materia Agregada!"

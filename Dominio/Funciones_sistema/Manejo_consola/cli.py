@@ -9,4 +9,6 @@ class CLI(Interfaz_Input, Interfaz_Output):
         return input(f'Ingrese {nombre_dato_a_obtener}: ')
     
     def mostrar_datos(self, lista_mensajes):
-        print(lista_mensajes, sep="\t")
+        for mensaje in lista_mensajes:
+            print(mensaje, end="\t")
+        print()
