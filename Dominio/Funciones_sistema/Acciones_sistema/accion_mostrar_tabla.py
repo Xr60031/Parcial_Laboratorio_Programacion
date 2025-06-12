@@ -30,6 +30,7 @@ class Mostrar_Tabla(Accion):
         self.main.accion = Seleccionar(self.main, materia_seleccionada)
 
     def salir(self):
+        self.main.persistencia.desconectar()
         sys.exit(0)
 
     def hacer_accion(self):
@@ -41,8 +42,8 @@ class Mostrar_Tabla(Accion):
 
             self.main.cli.mostrar_datos([
                 "ID",
-                "Nombre",
-                "Estado"
+                "Estado\t",
+                "Materia"
             ])
 
             for materia in materias:
@@ -57,8 +58,8 @@ class Mostrar_Tabla(Accion):
 
                 self.main.cli.mostrar_datos([
                     materia.get_id_materia(),
-                    materia.get_nombre_materia(),
-                    estado_materia.name
+                    estado_materia.name,
+                    materia.get_nombre_materia()
                 ])
             
             self.main.cli.mostrar_datos([

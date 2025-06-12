@@ -47,7 +47,11 @@ class Seleccionar(Accion):
         ])
 
         self.main.cli.mostrar_datos([
-            f"ID: {self.materia_seleccionada.id_materia}", f"Materia: {self.materia_seleccionada.nombre_materia}"
+            f"ID: {self.materia_seleccionada.id_materia}"
+        ])
+
+        self.main.cli.mostrar_datos([
+            f"Materia: {self.materia_seleccionada.nombre_materia}"
         ])
 
         self.main.cli.mostrar_datos([

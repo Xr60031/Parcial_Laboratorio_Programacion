@@ -3,7 +3,10 @@ from Dominio.Materias.nota import Nota
 class Parcial(Nota):
     def __init__(self, tupla):
         super().__init__(tupla)
-        self.valor_recuperatorio = tupla[3]
+        if len(tupla) > 3:
+            self.valor_recuperatorio = tupla[3]
+        else:
+            self.valor_recuperatorio = None
 
     def get_valor_recuperatorio(self):
         return self.valor_recuperatorio
