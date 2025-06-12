@@ -5,6 +5,7 @@ class Modificar(Accion):
         super().__init__(main)
         self.materia_seleccionada = materia
         self.ATRIBUTOS_DISPONIBLES = [
+            "id_materia",
             "nombre_materia",
             "nombre_docente",
             "nota_min_aprobar",
@@ -48,7 +49,7 @@ class Modificar(Accion):
 
         for i in range(len(self.ATRIBUTOS_DISPONIBLES)):
             self.main.cli.mostrar_datos([
-                i+1, self.ATRIBUTOS_DISPONIBLES[i]
+                i, self.ATRIBUTOS_DISPONIBLES[i]
             ])
         
         self.main.cli.mostrar_datos([
@@ -68,4 +69,4 @@ class Modificar(Accion):
         elif accion_elegida.upper() == "X":
             self.volver()
         else:
-            self.cambiar_a_modificar_atributo(accion_elegida)
+            self.cambiar_a_modificar_atributo(self.ATRIBUTOS_DISPONIBLES[accion_elegida])
