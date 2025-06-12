@@ -5,9 +5,10 @@ class Mostrar_Tabla(Accion):
     def __init__(self, main):
         super().__init__(main)
         self.ACCIONES_DISPONIBLES = {
-            "A": self.cambiar_a_agregar,
-            "B": self.cambiar_a_borrar_base,
-            "X": self.salir
+            "A": (self.cambiar_a_agregar, "Agregar materia"),
+            "B": (self.cambiar_a_borrar_base, "Borrar base"),
+            "S": (self.cambiar_a_seleccionar, "Seleccionar materia"),
+            "X": (self.salir, "Salir del programa")
         }
     
     def cambiar_a_agregar(self):
@@ -24,8 +25,16 @@ class Mostrar_Tabla(Accion):
                 return materia
         return None
 
-    def cambiar_a_seleccionar(self, id_materia_elegida, materias):
-        materia_seleccionada = self.buscar_materia(id_materia_elegida, materias)
+    def cambiar_a_seleccionar(self):
+        encontrada = False
+        while not encontrada:
+            id_elegida = self.main.interfaz_entrada.obtener_entero("ID")
+            materia_seleccionada = self.buscar_materia(id_elegida, self.materias)
+            if materia_seleccionada:
+                encontrada = True
+            else:
+                self.main.interfaz_salida.mostrar_advertencia("id_inexistente")
+        
         from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
         self.main.accion = Seleccionar(self.main, materia_seleccionada)
 
@@ -34,47 +43,10 @@ class Mostrar_Tabla(Accion):
         sys.exit(0)
 
     def hacer_accion(self):
-        materias = self.main.persistencia.obtener_materias()
-        if len(materias) > 0:
-            self.main.cli.mostrar_datos([
-                "-------------------------------------------------"
-            ])
+        self.materias = self.main.persistencia.obtener_materias()
+        
+        self.main.interfaz_salida.mostrar_tabla(self.materias, self.main.persistencia, self.main.builder_determinador)
 
-            self.main.cli.mostrar_datos([
-                "ID",
-                "Estado\t",
-                "Materia"
-            ])
+        opcion_elegida = self.main.interfaz_entrada.seleccionar_opcion(self.ACCIONES_DISPONIBLES)
 
-            for materia in materias:
-                parciales = self.main.persistencia.obtener_parciales(materia)
-                finales = self.main.persistencia.obtener_finales(materia)
-
-                self.main.builder_determinador.construir()
-                determinador = self.main.builder_determinador.get_resultado()
-                self.main.builder_determinador.reset()
-
-                estado_materia = determinador.consultar_estado(parciales, finales, materia)
-
-                self.main.cli.mostrar_datos([
-                    materia.get_id_materia(),
-                    estado_materia.name,
-                    materia.get_nombre_materia()
-                ])
-            
-            self.main.cli.mostrar_datos([
-                "-------------------------------------------------"
-            ])
-        else:
-            self.main.cli.mostrar_datos([
-                "No hay materias registradas."
-            ])
-
-        resultado = self.main.cli.obtener_dato(
-            "Acción (A = Agregar, B = Borrar base, [ID] = Seleccionar, X = Salir)"
-        )
-
-        if resultado.upper() in self.ACCIONES_DISPONIBLES:
-            self.ACCIONES_DISPONIBLES[resultado.upper()]()
-        else:
-            self.cambiar_a_seleccionar(resultado, materias)
+        opcion_elegida[0]()

@@ -8,15 +8,15 @@ class Main():
         self
         self.persistencia = Facade_Persistencia()
         self.builder_determinador = Builder_Determinador()
-        self.cli = CLI()
+        self.interfaz_entrada = CLI()
+        self.interfaz_salida = self.interfaz_entrada
         self.accion = Mostrar_Tabla(self)
 
     def main(self):
-
         self.persistencia.conectar()
         self.persistencia.crear_base()  
 
-        while(True):
+        while True:
             self.accion.hacer_accion()
 
 if __name__ == "__main__":
