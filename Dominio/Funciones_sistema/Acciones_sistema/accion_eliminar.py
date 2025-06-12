@@ -1,7 +1,6 @@
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
 from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar import Mostrar
 from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
-from Persistencia.Facade_Persistencia import Facade_Persistencia
 
 class Eliminar(Accion):
     def __init__(self, main, materia):

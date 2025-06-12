@@ -4,10 +4,10 @@ from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_valor_nota impo
 from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_valor_recuperatorio import Modificar_Valor_Recuperatorio
 
 class Modificar_Parcial(Accion):
-    def __init__(self, main, materia, nota):
+    def __init__(self, main, materia, id_nota):
         super().__init__(main)
         self.materia_seleccionada = materia
-        self.parcial_seleccionado = nota
+        self.parcial_seleccionado = id_nota
         self.acciones_disponibles = {
             "V": self.valor_nota_seleccionado,
             "R": self.valor_recuperatorio_seleccionado,

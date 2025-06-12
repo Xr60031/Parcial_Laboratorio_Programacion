@@ -1,4 +1,8 @@
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
+from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar_parcial import Agregar_Parcial
+from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar_final import Agregar_Final
+from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar_recuperatorio import Agregar_Recuperatorio
+from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
 
 class Agregar_Nota(Accion):
     def __init__(self, main, materia):

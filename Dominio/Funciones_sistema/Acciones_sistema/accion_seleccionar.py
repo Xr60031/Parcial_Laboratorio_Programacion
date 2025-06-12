@@ -1,6 +1,8 @@
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
 from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar import Mostrar
 from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar_nota import Agregar_Nota
+from Dominio.Funciones_sistema.Acciones_sistema.accion_eliminar import Eliminar
+from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar import Modificar
 
 class Seleccionar(Accion):
     def __init__(self, main, materia):
