@@ -7,8 +7,11 @@ class Agregar_Final(Accion):
         self.materia_seleccionada = materia
 
     def agregar_final(self, valor):
-        final = Final(None, self.materia_seleccionada.id_materia, valor)
+        final = Final((None, self.materia_seleccionada.id_materia, valor))
         self.main.persistencia.agregar_final(final)
+        self.main.cli.mostrar_datos([
+            "Final agregado."
+        ])
         from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
         self.main.accion = Seleccionar(self.main, self.materia_seleccionada)
 

@@ -14,7 +14,7 @@ class Modificar_Atributo(Accion):
         notas = self.main.persistencia.obtener_finales(self.materia_seleccionada)
 
         self.main.cli.mostrar_datos([
-            "ID", "VAL"
+            "ID", "Nota"
         ])
 
         for nota in notas:
@@ -30,7 +30,7 @@ class Modificar_Atributo(Accion):
             "Nota del final"
         )
 
-        self.main.persistencia.modificar_final(id_nota, "valor_nota", valor)
+        self.main.persistencia.modificar_final(int(id_nota), "valor_nota", valor)
 
     def modificar_atributo(self):
         valor = self.main.cli.obtener_dato(
@@ -43,7 +43,7 @@ class Modificar_Atributo(Accion):
         from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar import Modificar
         self.main.accion = Modificar(self.main, self.materia_seleccionada)
 
-    def realizar_accion(self):
+    def hacer_accion(self):
         if self.atributo.upper() == "F":
             self.modificar_final()
         else:

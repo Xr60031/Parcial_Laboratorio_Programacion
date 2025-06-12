@@ -5,8 +5,9 @@ class Borrar_Base(Accion):
         super().__init__(main)
     
     def cambiar_a_mostrar(self):
-        from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar import Mostrar
-        self.main.accion = Mostrar(self.main)
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar_tabla import Mostrar_Tabla
+        self.main.accion = Mostrar_Tabla(self.main)
+        
 
     def hacer_accion(self):
         self.main.cli.mostrar_datos([
@@ -18,5 +19,8 @@ class Borrar_Base(Accion):
 
         if respuesta.upper() == "S":
             self.main.persistencia.eliminar_base()
+            self.main.cli.mostrar_datos([
+                "Base borrada."
+            ])
         
         self.cambiar_a_mostrar()

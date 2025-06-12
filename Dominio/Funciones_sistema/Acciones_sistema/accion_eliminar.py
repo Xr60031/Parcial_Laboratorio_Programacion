@@ -11,8 +11,11 @@ class Eliminar(Accion):
 
     def eliminar_y_mostrar_tabla(self, ID_materia_seleccionada):
         self.main.persistencia.eliminar_parcial(ID_materia_seleccionada)
-        from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar import Mostrar
-        self.main.accion = Mostrar(self.main)
+        self.main.cli.mostrar_datos([
+            "Materia eliminada."
+        ])
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar_tabla import Mostrar_Tabla
+        self.main.accion = Mostrar_Tabla(self.main)
 
     def hacer_accion(self):
         self.main.cli.mostrar_datos([

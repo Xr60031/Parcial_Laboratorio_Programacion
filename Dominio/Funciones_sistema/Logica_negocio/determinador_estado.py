@@ -40,8 +40,8 @@ class Determinador_Estado():
     def aprobo(self, notas_finales, materia):
         return self.aprobado.operacion(notas_finales, materia.nota_min_aprobar)
     
-    def regularizo(self, notas_parciales, materia):
-        return self.regularizado.operacion(notas_parciales, materia.nota_min_aprobar) and self.intentos_final.operacion(notas_parciales, materia.cant_veces_final_rendible) > 0
+    def regularizo(self, notas_parciales, notas_finales, materia):
+        return self.regularizado.operacion(notas_parciales, materia.nota_min_aprobar) and self.intentos_final.operacion(notas_finales, materia.cant_veces_final_rendible) > 0
     
     def consultar_estado(self, notas_parciales, notas_finales, materia):
         if(self.esta_cursando(notas_parciales, materia)):
@@ -50,10 +50,7 @@ class Determinador_Estado():
             return Estado.PROMOCIONADO
         elif(self.aprobo(notas_finales, materia)):
             return Estado.APROBADO
-        elif(self.regularizo(notas_parciales, materia)):
+        elif(self.regularizo(notas_parciales, notas_finales, materia)):
             return Estado.REGULARIZADO
-        else: 
+        else:
             return Estado.DESAPROBADO
-
-
-

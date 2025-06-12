@@ -16,8 +16,8 @@ class Agregar(Accion):
         ]
     
     def cambiar_a_mostrar(self):
-        from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar import Mostrar
-        self.main.accion = Mostrar(self.main)
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar_tabla import Mostrar_Tabla
+        self.main.accion = Mostrar_Tabla(self.main)
 
     def hacer_accion(self):
         self.main.cli.mostrar_datos([
@@ -38,7 +38,7 @@ class Agregar(Accion):
         
         nueva_materia = Materia(tuple(datos))
 
-        self.main.cli.agregar_materia(nueva_materia)
+        self.main.persistencia.agregar_materia(nueva_materia)
 
         self.main.cli.mostrar_datos([
             "¡Materia Agregada!"

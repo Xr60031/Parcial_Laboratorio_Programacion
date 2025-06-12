@@ -19,7 +19,7 @@ class Modificar(Accion):
         notas = self.main.persistencia.obtener_parciales(self.materia_seleccionada)
 
         self.main.cli.mostrar_datos([
-            "ID", "VAL", "REC"
+            "ID", "Nota", "Recuperatorio"
         ])
 
         for nota in notas:
@@ -32,11 +32,11 @@ class Modificar(Accion):
         )
 
         from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_parcial import Modificar_Parcial
-        self.main.accion = Modificar_Parcial(self.main, self.materia_seleccionada, id_nota)
+        self.main.accion = Modificar_Parcial(self.main, self.materia_seleccionada, int(id_nota))
 
     def cambiar_a_modificar_atributo(self, atributo):
         from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_atributo import Modificar_Atributo
-        self.main.accion = Modificar_Atributo(atributo)
+        self.main.accion = Modificar_Atributo(self.main, self.materia_seleccionada, atributo)
 
     def volver(self):
         from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
@@ -68,5 +68,7 @@ class Modificar(Accion):
             self.modificar_parcial()
         elif accion_elegida.upper() == "X":
             self.volver()
+        elif accion_elegida.upper() == "F":
+            self.cambiar_a_modificar_atributo(accion_elegida)
         else:
-            self.cambiar_a_modificar_atributo(self.ATRIBUTOS_DISPONIBLES[accion_elegida])
+            self.cambiar_a_modificar_atributo(self.ATRIBUTOS_DISPONIBLES[int(accion_elegida)])

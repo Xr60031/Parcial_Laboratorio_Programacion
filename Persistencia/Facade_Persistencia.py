@@ -115,15 +115,15 @@ class Facade_Persistencia():
         self.conn.commit()
 
     def eliminar_materia(self, ID):
-        self.cursor.execute(f"DELETE FROM Materia WHERE id_materia = {ID}")
+        self.cursor.execute("DELETE FROM Materia WHERE id_materia = ?", (ID,))
         self.conn.commit()
 
     def modificar_materia(self, ID, campo, valor):
-        self.cursor.execute(f"UPDATE Materia SET {campo} = {valor} WHERE id_materia = {ID}")
+        self.cursor.execute(f"UPDATE Materia SET {campo} = ? WHERE id_materia = ?", (valor, ID))
         self.conn.commit()
     
     def obtener_parciales(self, materia):
-        self.cursor.execute(f"SELECT * FROM Parcial WHERE id_materia = {materia.get_id_materia()}")
+        self.cursor.execute("SELECT * FROM Parcial WHERE id_materia = ?", (materia.get_id_materia(),))
         tuplas_parciales = self.cursor.fetchall()  # Lista de tuplas
         
         parciales = []
@@ -146,15 +146,15 @@ class Facade_Persistencia():
         self.conn.commit()
 
     def eliminar_parcial(self, ID):
-        self.cursor.execute(f"DELETE FROM Parcial WHERE id_nota = {ID}")
+        self.cursor.execute("DELETE FROM Parcial WHERE id_nota = ?", (ID,))
         self.conn.commit()
 
     def modificar_parcial(self, ID, campo, valor):
-        self.cursor.execute(f"UPDATE Parcial SET {campo} = {valor} WHERE id_nota = {ID}")
+        self.cursor.execute(f"UPDATE Parcial SET {campo} = ? WHERE id_nota = ?", (valor, ID))
         self.conn.commit()
 
     def obtener_finales(self, materia):
-        self.cursor.execute(f"SELECT * FROM Final WHERE id_materia = {materia.get_id_materia()}")
+        self.cursor.execute("SELECT * FROM Final WHERE id_materia = ?", (materia.get_id_materia(),))
         tuplas_finales = self.cursor.fetchall()  # Lista de tuplas
         
         finales = []
@@ -177,17 +177,17 @@ class Facade_Persistencia():
         self.conn.commit()
 
     def eliminar_final(self, ID):
-        self.cursor.execute(f"DELETE FROM Final WHERE id_nota = {ID}")
+        self.cursor.execute("DELETE FROM Final WHERE id_nota = ?", (ID,))
         self.conn.commit()
 
     def modificar_final(self, ID, campo, valor):
-        self.cursor.execute(f"UPDATE Final SET {campo} = {valor} WHERE id_nota = {ID}")
+        self.cursor.execute(f"UPDATE Final SET {campo} = ? WHERE id_nota = ?", (valor, ID))
         self.conn.commit()
 
     def agregar_recuperatorio(self, ID, valor):
-        self.cursor.execute(f"UPDATE Parcial SET valor_recuperatorio = {valor} WHERE id_nota = {ID}")
+        self.cursor.execute("UPDATE Parcial SET valor_recuperatorio = ? WHERE id_nota = ?", (valor, ID))
         self.conn.commit()
 
     def eliminar_recuperatorio(self, ID):
-        self.cursor.execute(f"UPDATE Parcial SET valor_recuperatorio = NULL WHERE id_nota = {ID}")
+        self.cursor.execute("UPDATE Parcial SET valor_recuperatorio = NULL WHERE id_nota = ?", (ID,))
         self.conn.commit()

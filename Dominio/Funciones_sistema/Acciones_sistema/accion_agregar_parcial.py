@@ -7,8 +7,11 @@ class Agregar_Parcial(Accion):
         self.materia_seleccionada = materia
 
     def agregar_parcial(self, valor):
-        parcial = Parcial(None, self.materia_seleccionada.id_materia, valor)
+        parcial = Parcial((None, self.materia_seleccionada.id_materia, valor))
         self.main.persistencia.agregar_parcial(parcial)
+        self.main.cli.mostrar_datos([
+            "Parcial agregado."
+        ])
         from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
         self.main.accion = Seleccionar(self.main, self.materia_seleccionada)
 
