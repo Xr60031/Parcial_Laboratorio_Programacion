@@ -27,7 +27,7 @@ class Modificar(Accion):
             ])
 
         id_nota = self.main.cli.obtener_dato(
-            "ID del parcial a modificar: "
+            "ID del parcial a modificar"
         )
 
         from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_parcial import Modificar_Parcial
@@ -60,7 +60,7 @@ class Modificar(Accion):
         ])
 
         accion_elegida = self.main.cli.obtener_dato(
-            "Atributo a modificar (X = Volver): "
+            "Atributo a modificar (X = Volver)"
         )
         
         if accion_elegida.upper() == "P":

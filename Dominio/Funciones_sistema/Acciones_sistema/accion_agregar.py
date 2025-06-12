@@ -28,7 +28,7 @@ class Agregar(Accion):
         
         for i in range(len(self.DATOS)):
             respuesta = self.main.cli.obtener_dato(
-                self.DATOS[i] + ": "
+                self.DATOS[i]
             )
 
             if respuesta.upper() != "X":

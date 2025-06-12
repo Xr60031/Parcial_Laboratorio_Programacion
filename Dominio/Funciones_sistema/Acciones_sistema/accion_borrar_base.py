@@ -13,7 +13,7 @@ class Borrar_Base(Accion):
             "¿Estás seguro que querés borrar toda la información de materias y notas de la base?"
         ])
         respuesta = self.main.cli.obtener_dato(
-            "Confirmación (S = Sí, X = No): "
+            "Confirmación (S = Sí, X = No)"
         )
 
         if respuesta.upper() == "S":

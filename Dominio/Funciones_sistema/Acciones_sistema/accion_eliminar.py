@@ -19,7 +19,7 @@ class Eliminar(Accion):
             f"¿Estás seguro que querés eliminar la materia {self.materia_seleccionada.nombre_materia}?"
         ])
         accion_elegida = self.main.cli.obtener_dato(
-            "Confirmación (S = Sí, X = No): "
+            "Confirmación (S = Sí, X = No)"
         )
 
         if accion_elegida.upper() == "S":

@@ -29,6 +29,6 @@ class Agregar_Nota(Accion):
 
     def hacer_accion(self):
         accion_elegida = self.main.cli.obtener_dato(
-            "Tipo de Nota (P = Agregar parcial, F = Agregar final, R = Agregar recuperatorio, X = Volver): "
+            "Tipo de Nota (P = Agregar parcial, F = Agregar final, R = Agregar recuperatorio, X = Volver)"
         )
         self.ACCIONES_DISPONIBLES[accion_elegida.upper()]()

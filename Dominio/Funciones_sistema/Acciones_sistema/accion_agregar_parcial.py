@@ -18,7 +18,7 @@ class Agregar_Parcial(Accion):
 
     def hacer_accion(self):
         valor = self.main.cli.obtener_dato(
-            "Nota del parcial (X = Volver): "
+            "Nota del parcial (X = Volver)"
         )
 
         if valor.upper() != "X":

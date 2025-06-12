@@ -23,18 +23,18 @@ class Modificar_Atributo(Accion):
             ])
 
         id_nota = self.main.cli.obtener_dato(
-            "ID del final a modificar: "
+            "ID del final a modificar"
         )
 
         valor = self.main.cli.obtener_dato(
-            "Nota del final: "
+            "Nota del final"
         )
 
         self.main.persistencia.modificar_final(id_nota, "valor_nota", valor)
 
     def modificar_atributo(self):
         valor = self.main.cli.obtener_dato(
-            "Nuevo valor: "
+            "Nuevo valor"
         )
 
         self.main.persistencia.modificar_materia(self.materia_seleccionada.id_materia, self.atributo, valor)

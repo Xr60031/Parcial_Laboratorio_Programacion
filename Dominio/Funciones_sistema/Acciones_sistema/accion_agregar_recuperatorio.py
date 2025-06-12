@@ -28,11 +28,11 @@ class Agregar_Recuperatorio(Accion):
                 ])
 
         id_nota = self.main.cli.obtener_dato(
-            "ID del parcial a agregar recuperatorio: "
+            "ID del parcial a agregar recuperatorio"
         )
         
         valor = self.main.cli.obtener_dato(
-            "Nota del parcial (X = Volver): "
+            "Nota del parcial (X = Volver)"
         )
 
         if valor.upper() != "X":

@@ -18,7 +18,7 @@ class Agregar_Final(Accion):
 
     def hacer_accion(self):
         valor = self.main.cli.obtener_dato(
-            "Nota del final (X = Volver): "
+            "Nota del final (X = Volver)"
         )
 
         if valor.upper() != "X":

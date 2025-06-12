@@ -25,6 +25,6 @@ class Modificar_Parcial(Accion):
 
     def hacer_accion(self):
         accion_elegida = self.main.cli.obtener_dato(
-            "Nota a modificar (V = Nota original, R = Nota del recuperatorio, X = Volver): "
+            "Nota a modificar (V = Nota original, R = Nota del recuperatorio, X = Volver)"
         )
         self.acciones_disponibles[accion_elegida.upper()]()
