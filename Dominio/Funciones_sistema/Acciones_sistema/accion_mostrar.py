@@ -1,6 +1,8 @@
 import sys
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
+from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar import Agregar
 from Dominio.Funciones_sistema.Acciones_sistema.accion_borrar_base import Borrar_Base
+from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
 
 class Mostrar(Accion):
     def __init__(self, main):
@@ -16,9 +18,16 @@ class Mostrar(Accion):
 
     def cambiar_a_borrar_base(self):
         self.main.accion = Borrar_Base(self.main)
+    
+    def buscar_materia(self, id_materia, materias):
+        for materia in materias:
+            if materia.id_materia == id_materia:
+                return materia
+        return None
 
     def cambiar_a_seleccionar(self, id_materia_elegida, materias):
-        self.main.accion = Seleccionar(self.main, materias[id_materia_elegida]) #not really
+        materia_seleccionada = self.buscar_materia(id_materia_elegida, materias)
+        self.main.accion = Seleccionar(self.main, materia_seleccionada)
 
     def salir(self):
         sys.exit(0)
