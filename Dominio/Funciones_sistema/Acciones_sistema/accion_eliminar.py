@@ -1,6 +1,4 @@
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
-from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar import Mostrar
-from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
 
 class Eliminar(Accion):
     def __init__(self, main, materia):
@@ -8,10 +6,12 @@ class Eliminar(Accion):
         self.materia_seleccionada = materia
     
     def volver(self, id_materia_elegida, materias):
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
         self.main.accion = Seleccionar(self.main, materias[id_materia_elegida])
 
     def eliminar_y_mostrar_tabla(self, ID_materia_seleccionada):
         self.main.persistencia.eliminar_parcial(ID_materia_seleccionada)
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar import Mostrar
         self.main.accion = Mostrar(self.main)
 
     def hacer_accion(self):

@@ -1,7 +1,4 @@
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
-from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_parcial import Modificar_Parcial
-from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_atributo import Modificar_Atributo
-from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
 
 class Modificar(Accion):
     def __init__(self, main, materia):
@@ -33,12 +30,15 @@ class Modificar(Accion):
             "ID del parcial a modificar: "
         )
 
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_parcial import Modificar_Parcial
         self.main.accion = Modificar_Parcial(self.main, self.materia_seleccionada, id_nota)
 
     def cambiar_a_modificar_atributo(self, atributo):
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_atributo import Modificar_Atributo
         self.main.accion = Modificar_Atributo(atributo)
 
     def volver(self):
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
         self.main.accion = Seleccionar(self.main, self.materia_seleccionada)
 
     def hacer_accion(self):

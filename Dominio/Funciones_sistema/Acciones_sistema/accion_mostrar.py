@@ -1,8 +1,5 @@
 import sys
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
-from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar import Agregar
-from Dominio.Funciones_sistema.Acciones_sistema.accion_borrar_base import Borrar_Base
-from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
 
 class Mostrar(Accion):
     def __init__(self, main):
@@ -14,9 +11,11 @@ class Mostrar(Accion):
         }
     
     def cambiar_a_agregar(self):
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar import Agregar
         self.main.accion = Agregar(self.main)
 
     def cambiar_a_borrar_base(self):
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_borrar_base import Borrar_Base
         self.main.accion = Borrar_Base(self.main)
     
     def buscar_materia(self, id_materia, materias):
@@ -27,6 +26,7 @@ class Mostrar(Accion):
 
     def cambiar_a_seleccionar(self, id_materia_elegida, materias):
         materia_seleccionada = self.buscar_materia(id_materia_elegida, materias)
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
         self.main.accion = Seleccionar(self.main, materia_seleccionada)
 
     def salir(self):
@@ -51,7 +51,7 @@ class Mostrar(Accion):
             ])
 
         resultado = self.main.cli.obtener_dato(
-            "Acción (A = Agregar, B = Borrar base, [cod_materia] = Seleccionar, X = Salir): "
+            "Acción (A = Agregar, B = Borrar base, [cod_materia] = Seleccionar, X = Salir)"
         )
 
         if type(resultado) == int:

@@ -1,8 +1,4 @@
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
-from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar_parcial import Agregar_Parcial
-from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar_final import Agregar_Final
-from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar_recuperatorio import Agregar_Recuperatorio
-from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
 
 class Agregar_Nota(Accion):
     def __init__(self, main, materia):
@@ -16,15 +12,19 @@ class Agregar_Nota(Accion):
         }
 
     def agregar_parcial(self):
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar_parcial import Agregar_Parcial
         self.main.accion = Agregar_Parcial(self.main, self.materia_seleccionada)
 
     def agregar_final(self):
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar_final import Agregar_Final
         self.main.accion = Agregar_Final(self.main, self.materia_seleccionada)
 
     def agregar_recuperatorio(self):
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar_recuperatorio import Agregar_Recuperatorio
         self.main.accion = Agregar_Recuperatorio(self.main, self.materia_seleccionada)
 
     def volver(self):
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
         self.main.accion = Seleccionar(self.main, self.materia_seleccionada)
 
     def hacer_accion(self):

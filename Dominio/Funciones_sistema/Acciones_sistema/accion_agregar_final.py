@@ -1,6 +1,4 @@
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
-from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar_nota import Agregar_Nota
-from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
 from Dominio.Materias.final import Final
 
 class Agregar_Final(Accion):
@@ -11,9 +9,11 @@ class Agregar_Final(Accion):
     def agregar_final(self, valor):
         final = Final(None, self.materia_seleccionada.id_materia, valor)
         self.main.persistencia.agregar_final(final)
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
         self.main.accion = Seleccionar(self.main, self.materia_seleccionada)
 
     def volver(self):
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar_nota import Agregar_Nota
         self.main.accion = Agregar_Nota(self.main, self.materia_seleccionada)
 
     def hacer_accion(self):

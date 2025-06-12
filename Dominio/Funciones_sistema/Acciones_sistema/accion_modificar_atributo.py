@@ -1,6 +1,4 @@
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
-from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
-from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar import Modificar
 
 class Modificar_Atributo(Accion):
     def __init__(self, main, materia, atributo):
@@ -9,6 +7,7 @@ class Modificar_Atributo(Accion):
         self.atributo = atributo
 
     def cambiar_a_seleccionar(self):
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
         self.main.accion = Seleccionar(self.main, self.materia_seleccionada)
 
     def modificar_final(self):
@@ -41,6 +40,7 @@ class Modificar_Atributo(Accion):
         self.main.persistencia.modificar_materia(self.materia_seleccionada.id_materia, self.atributo, valor)
     
     def volver(self):
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar import Modificar
         self.main.accion = Modificar(self.main, self.materia_seleccionada)
 
     def realizar_accion(self):

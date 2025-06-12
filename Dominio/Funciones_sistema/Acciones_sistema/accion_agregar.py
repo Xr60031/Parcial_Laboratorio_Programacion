@@ -1,6 +1,5 @@
 from Dominio.Materias.materia import Materia
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
-from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar import Mostrar
 
 class Agregar(Accion):
     def __init__(self, main):
@@ -17,6 +16,7 @@ class Agregar(Accion):
         ]
     
     def cambiar_a_mostrar(self):
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar import Mostrar
         self.main.accion = Mostrar(self.main)
 
     def hacer_accion(self):

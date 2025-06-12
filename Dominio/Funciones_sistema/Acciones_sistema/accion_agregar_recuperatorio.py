@@ -1,7 +1,4 @@
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
-from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar_nota import Agregar_Nota
-from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
-from Dominio.Materias.parcial import Parcial
 
 class Agregar_Recuperatorio(Accion):
     def __init__(self, main, materia):
@@ -10,9 +7,11 @@ class Agregar_Recuperatorio(Accion):
 
     def agregar_recuperatorio(self, id_nota, valor):
         self.main.persistencia.modificar_parcial(id_nota, "valor_recuperatorio", valor)
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
         self.main.accion = Seleccionar(self.main, self.materia_seleccionada)
 
     def volver(self):
+        from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar_nota import Agregar_Nota
         self.main.accion = Agregar_Nota(self.main, self.materia_seleccionada)
 
     def hacer_accion(self):
