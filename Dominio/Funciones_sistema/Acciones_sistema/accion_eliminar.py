@@ -19,7 +19,7 @@ class Eliminar(Accion):
 
     def hacer_accion(self):
         self.main.cli.mostrar_datos([
-            f"¿Estás seguro que querés eliminar la materia {self.materia_seleccionada.nombre_materia}?"
+            f"¿Estás seguro que querés eliminar la materia {self.materia_seleccionada.nombre_materia} y todos sus parciales/finales asociados?"
         ])
         accion_elegida = self.main.cli.obtener_dato(
             "Confirmación (S = Sí, X = No)"

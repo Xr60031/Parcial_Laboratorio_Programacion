@@ -117,6 +117,8 @@ class Facade_Persistencia():
     def eliminar_materia(self, ID):
         self.cursor.execute("DELETE FROM Materia WHERE id_materia = ?", (ID,))
         self.conn.commit()
+        self.eliminar_parciales(ID)
+        self.eliminar_finales(ID)
 
     def modificar_materia(self, ID, campo, valor):
         self.cursor.execute(f"UPDATE Materia SET {campo} = ? WHERE id_materia = ?", (valor, ID))
@@ -145,8 +147,8 @@ class Facade_Persistencia():
 
         self.conn.commit()
 
-    def eliminar_parcial(self, ID):
-        self.cursor.execute("DELETE FROM Parcial WHERE id_nota = ?", (ID,))
+    def eliminar_parciales(self, ID):
+        self.cursor.execute("DELETE FROM Parcial WHERE id_materia = ?", (ID,))
         self.conn.commit()
 
     def modificar_parcial(self, ID, campo, valor):
@@ -176,8 +178,8 @@ class Facade_Persistencia():
 
         self.conn.commit()
 
-    def eliminar_final(self, ID):
-        self.cursor.execute("DELETE FROM Final WHERE id_nota = ?", (ID,))
+    def eliminar_finales(self, ID):
+        self.cursor.execute("DELETE FROM Final WHERE id_materia = ?", (ID,))
         self.conn.commit()
 
     def modificar_final(self, ID, campo, valor):
