@@ -1,8 +1,11 @@
 class Nota():
     def __init__(self, tupla):
-        self.id_nota = int(tupla[0])
+        try:
+            self.id_nota = int(tupla[0])
+        except Exception:
+            self.id_nota = None
         self.id_materia = int(tupla[1])
-        self.valor_nota = int(tupla[2])
+        self.valor_nota = float(tupla[2])
 
     def get_id_nota(self):
         return self.id_nota

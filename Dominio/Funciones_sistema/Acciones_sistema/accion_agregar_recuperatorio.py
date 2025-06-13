@@ -17,11 +17,10 @@ class Agregar_Recuperatorio(Accion):
         parciales = self.main.persistencia.obtener_parciales(self.materia_seleccionada)
 
         if len(parciales) > 0:
-            print("-- PARCIALES --")
-            self.mostrar_notas(parciales, recu=True, id=True)
-            id_nota = self.main.interfaz_entrdada.obtener_entero("ID del parcial a agregar/sobreescribir recuperatorio")
-            valor = self.main.interfaz_entrdada.obtener_decimal("Nota del recuperatorio")
+            self.main.interfaz_salida.mostrar_notas(parciales, recu=True, id=True)
+            id_nota = self.main.interfaz_entrada.obtener_entero("ID del parcial a agregar/sobreescribir recuperatorio")
+            valor = self.main.interfaz_entrada.obtener_decimal("Nota del recuperatorio")
             self.agregar_recuperatorio(id_nota, valor)
         else:
-            print("No hay parciales registrados de esta materia.")
+            self.main.interfaz_salida.mostrar_advertencia("sin_notas")
         self.volver()

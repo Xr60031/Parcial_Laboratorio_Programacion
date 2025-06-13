@@ -10,7 +10,7 @@ class Eliminar(Accion):
         self.main.accion = Seleccionar(self.main, materias[id_materia_elegida])
 
     def eliminar_y_mostrar_tabla(self, ID_materia_seleccionada):
-        self.main.persistencia.eliminar_parcial(ID_materia_seleccionada)
+        self.main.persistencia.eliminar_materia(ID_materia_seleccionada)
         self.main.interfaz_salida.mostrar_advertencia("materia_eliminada")
         from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar_tabla import Mostrar_Tabla
         self.main.accion = Mostrar_Tabla(self.main)

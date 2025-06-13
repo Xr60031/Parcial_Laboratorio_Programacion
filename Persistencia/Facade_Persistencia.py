@@ -38,12 +38,12 @@ class Facade_Persistencia():
                     nombre_materia TEXT NOT NULL,
                     nombre_docente TEXT NOT NULL,
                     nota_min_aprobar REAL NOT NULL,
-                    es_promocionable BOOLEAN NOT NULL,
+                    es_promocionable INTEGER NOT NULL,
                     nota_min_promocion REAL,
                     cant_veces_final_rendible INTEGER NOT NULL,
                     cant_parciales INTEGER NOT NULL
                 )
-                '''
+                ''' #es_promocionable es BOOLEAN
             )
             self.conn.commit()
     
@@ -80,6 +80,7 @@ class Facade_Persistencia():
     def eliminar_base(self):
         for tabla in ["Materia", "Parcial", "Final"]:
             self.cursor.execute(f"DELETE FROM {tabla}")
+            self.conn.commit()
 
     def obtener_materias(self):
         self.cursor.execute("SELECT * FROM Materia")
@@ -121,6 +122,7 @@ class Facade_Persistencia():
         self.eliminar_finales(ID)
 
     def modificar_materia(self, ID, campo, valor):
+        print(type(campo), campo, type(valor), valor, type(ID), ID)
         self.cursor.execute(f"UPDATE Materia SET {campo} = ? WHERE id_materia = ?", (valor, ID))
         self.conn.commit()
     
@@ -192,4 +194,9 @@ class Facade_Persistencia():
 
     def eliminar_recuperatorio(self, ID):
         self.cursor.execute("UPDATE Parcial SET valor_recuperatorio = NULL WHERE id_nota = ?", (ID,))
+        self.conn.commit()
+
+    def mover_notas(self, id_materia_vieja, id_materia_nueva):
+        self.cursor.execute(f"UPDATE Parcial SET id_materia = ? WHERE id_materia = ?", (id_materia_nueva, id_materia_vieja))
+        self.cursor.execute(f"UPDATE Final SET id_materia = ? WHERE id_materia = ?", (id_materia_nueva, id_materia_vieja))
         self.conn.commit()
