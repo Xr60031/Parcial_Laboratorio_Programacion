@@ -35,9 +35,9 @@ class CLI(Interfaz_Input, Interfaz_Output):
         while True:
             ingreso = input(f'{booleano_a_obtener} (S/N): ').upper()
             if ingreso == "S":
-                return 1
+                return True
             elif ingreso == "N":
-                return 0
+                return False
             else:
                 self.mostrar_advertencia("no_booleano")
     
