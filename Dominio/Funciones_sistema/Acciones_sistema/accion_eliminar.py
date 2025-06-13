@@ -11,21 +11,16 @@ class Eliminar(Accion):
 
     def eliminar_y_mostrar_tabla(self, ID_materia_seleccionada):
         self.main.persistencia.eliminar_parcial(ID_materia_seleccionada)
-        self.main.cli.mostrar_datos([
-            "Materia eliminada."
-        ])
+        self.main.interfaz_salida.mostrar_advertencia("materia_eliminada")
         from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar_tabla import Mostrar_Tabla
         self.main.accion = Mostrar_Tabla(self.main)
 
     def hacer_accion(self):
-        self.main.cli.mostrar_datos([
+        confirmacion = self.main.interfaz_entrada.obtener_booleano(
             f"¿Estás seguro que querés eliminar la materia {self.materia_seleccionada.nombre_materia} y todos sus parciales/finales asociados?"
-        ])
-        accion_elegida = self.main.cli.obtener_dato(
-            "Confirmación (S = Sí, X = No)"
         )
 
-        if accion_elegida.upper() == "S":
+        if confirmacion:
             self.eliminar_y_mostrar_tabla(self.materia_seleccionada.id_materia)
         else:
             self.volver()

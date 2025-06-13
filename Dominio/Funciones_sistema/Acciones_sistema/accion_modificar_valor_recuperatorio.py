@@ -10,14 +10,7 @@ class Modificar_Valor_Recuperatorio(Accion):
         from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
         self.main.accion = Seleccionar(self.main, self.materia_seleccionada)
 
-    def volver(self):
-        from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_parcial import Modificar_Parcial
-        self.main.accion = Modificar_Parcial(self.main, self.materia_seleccionada, self.id_nota)
-
     def hacer_accion(self):
-        valor = self.main.cli.obtener_dato("Nota del recuperatorio (X = Volver)")
-        if valor.upper() != "X":
-            self.main.persistencia.modificar_parcial(self.id_nota, "valor_recuperatorio", valor)
-            self.cambiar_a_seleccionar()
-        else:
-            self.volver()
+        valor = self.main.interfaz_entrada.obtener_decimal("Nota del recuperatorio")
+        self.main.persistencia.modificar_parcial(self.id_nota, "valor_recuperatorio", valor)
+        self.cambiar_a_seleccionar()

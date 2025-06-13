@@ -7,38 +7,21 @@ class Agregar_Recuperatorio(Accion):
 
     def agregar_recuperatorio(self, id_nota, valor):
         self.main.persistencia.agregar_recuperatorio(id_nota, valor)
-        self.main.cli.mostrar_datos([
-            "Recuperatorio agregado."
-        ])
+        self.main.interfaz_salida.mostrar_advertencia("recuperatorio_agregado")
+
+    def volver(self):
         from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
         self.main.accion = Seleccionar(self.main, self.materia_seleccionada)
 
-    def volver(self):
-        from Dominio.Funciones_sistema.Acciones_sistema.accion_agregar_nota import Agregar_Nota
-        self.main.accion = Agregar_Nota(self.main, self.materia_seleccionada)
-
     def hacer_accion(self):
-        notas = self.main.persistencia.obtener_parciales(self.materia_seleccionada)
+        parciales = self.main.persistencia.obtener_parciales(self.materia_seleccionada)
 
-        self.main.cli.mostrar_datos([
-            "ID", "Nota"
-        ])
-
-        for nota in notas:
-            if not nota.valor_recuperatorio:
-                self.main.cli.mostrar_datos([
-                    nota.id_nota, nota.valor_nota
-                ])
-
-        id_nota = self.main.cli.obtener_dato(
-            "ID del parcial a agregar recuperatorio"
-        )
-        
-        valor = self.main.cli.obtener_dato(
-            "Nota del recuperatorio (X = Volver)"
-        )
-
-        if valor.upper() != "X":
-            self.agregar_recuperatorio(int(id_nota), int(valor))
+        if len(parciales) > 0:
+            print("-- PARCIALES --")
+            self.mostrar_notas(parciales, recu=True, id=True)
+            id_nota = self.main.interfaz_entrdada.obtener_entero("ID del parcial a agregar/sobreescribir recuperatorio")
+            valor = self.main.interfaz_entrdada.obtener_decimal("Nota del recuperatorio")
+            self.agregar_recuperatorio(id_nota, valor)
         else:
-            self.volver()
+            print("No hay parciales registrados de esta materia.")
+        self.volver()

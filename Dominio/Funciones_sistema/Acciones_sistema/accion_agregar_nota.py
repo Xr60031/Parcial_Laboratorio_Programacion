@@ -5,10 +5,10 @@ class Agregar_Nota(Accion):
         super().__init__(main)
         self.materia_seleccionada = materia
         self.ACCIONES_DISPONIBLES = {
-            "P": self.agregar_parcial,
-            "F": self.agregar_final,
-            "R": self.agregar_recuperatorio,
-            "X": self.volver
+            "P": (self.agregar_parcial, "Parcial"),
+            "F": (self.agregar_final, "Final"),
+            "R": (self.agregar_recuperatorio, "Recuperatorio"),
+            "X": (self.volver, "Volver")
         }
 
     def agregar_parcial(self):
@@ -28,7 +28,5 @@ class Agregar_Nota(Accion):
         self.main.accion = Seleccionar(self.main, self.materia_seleccionada)
 
     def hacer_accion(self):
-        accion_elegida = self.main.cli.obtener_dato(
-            "Tipo de Nota (P = Agregar parcial, F = Agregar final, R = Agregar recuperatorio, X = Volver)"
-        )
-        self.ACCIONES_DISPONIBLES[accion_elegida.upper()]()
+        opcion_elegida = self.main.interfaz_entrada.seleccionar_opcion(self.ACCIONES_DISPONIBLES)
+        opcion_elegida[0]()
