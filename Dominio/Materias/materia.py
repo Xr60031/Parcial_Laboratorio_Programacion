@@ -1,15 +1,18 @@
 class Materia():
     def __init__(self, tupla):
         self.id_materia = int(tupla[0])
-        self.nombre_materia = tupla[1]
-        self.nombre_docente = tupla[2]
-        self.nota_min_aprobar = int(tupla[3])
-        if tupla[4] == "True":
-            self.es_promocionable = True
+        self.nombre_materia = str(tupla[1])
+        self.nombre_docente = str(tupla[2])
+        self.nota_min_aprobar = float(tupla[3])
+        if type(tupla[4]) != bool:
+            if tupla[4] == "True":
+                self.es_promocionable = True
+            else:
+                self.es_promocionable = False
         else:
-            self.es_promocionable = False
+            self.es_promocionable = tupla[4]
         try:
-            self.nota_min_promocion = int(tupla[5])
+            self.nota_min_promocion = float(tupla[5])
         except Exception:
             self.nota_min_promocion = None
         self.cant_veces_final_rendible = int(tupla[6])

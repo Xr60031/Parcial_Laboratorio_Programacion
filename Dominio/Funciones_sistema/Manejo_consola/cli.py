@@ -18,6 +18,29 @@ class CLI(Interfaz_Input, Interfaz_Output):
             except Exception:
                 self.mostrar_advertencia("no_entero")
     
+    def obtener_decimal(self, decimal_a_obtener):
+        while True:
+            ingreso = input(f'Ingrese {decimal_a_obtener}: ')
+            try:
+                ingreso = float(ingreso)
+                return ingreso
+            except Exception:
+                self.mostrar_advertencia("no_decimal")
+
+    def obtener_cadena(self, cadena_a_obtener):
+        ingreso = input(f'Ingrese {cadena_a_obtener}: ')
+        return ingreso
+
+    def obtener_booleano(self, booleano_a_obtener):
+        while True:
+            ingreso = input(f'{booleano_a_obtener} (S/N): ')
+            if ingreso == "S":
+                return True
+            elif ingreso == "N":
+                return False
+            else:
+                self.mostrar_advertencia("no_booleano")
+    
     def seleccionar_opcion(self, opciones_disponibles):
         print("-- Opciones disponibles --")
         for opcion in opciones_disponibles:
@@ -62,6 +85,22 @@ class CLI(Interfaz_Input, Interfaz_Output):
             print("No hay materias registradas.")
         print("-------------------------------------------------")
     
+    def mostrar_notas(self, notas, recu=False, id=False):
+        print(
+            "ID" if id else "",
+            "Nota",
+            "Recuperatorio" if recu else "",
+            sep="\t"
+        )
+
+        for nota in notas:
+            print(
+                nota.id_nota if id else "",
+                nota.valor_nota,
+                nota.valor_recuperatorio if recu else "",
+                sep="\t"
+            )
+
     def mostrar_info_materia(self, materia_seleccionada, persistencia, builder_determinador):
         print("-------------------------------------------------")
 
@@ -83,29 +122,16 @@ class CLI(Interfaz_Input, Interfaz_Output):
         parciales = persistencia.obtener_parciales(materia_seleccionada)
 
         if len(parciales) > 0:
-            print("----------")
-            print(
-                "PARCIAL",
-                "RECUPERATORIO",
-                sep="\t"
-            )
-
-            for parcial in parciales:
-                print(
-                    parcial.valor_nota,
-                    parcial.valor_recuperatorio or "",
-                    sep="\t"
-                )
+            print("-- PARCIALES --")
+            self.mostrar_notas(parciales, recu=True)
         else:
             print("No hay parciales registrados de esta materia.")
 
         finales = persistencia.obtener_finales(materia_seleccionada)
 
         if len(finales) > 0:
-            print("----------")
-            print("FINALES")
-            for final in finales:
-                print(final.valor_nota)
+            print("-- FINALES --")
+            self.mostrar_notas(finales)
         else:
             print("No hay finales registrados de esta materia.")
 

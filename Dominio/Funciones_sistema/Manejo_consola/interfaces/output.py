@@ -4,9 +4,17 @@ class Interfaz_Output(ABC):
     def __init__(self):
         super().__init__()
         self.ADVERTENCIAS = {
-            "id_inexistente": "Esa ID no está disponible. Intente de nuevo.",
-            "no_entero": "No se ingresó un número. Intente de nuevo.",
-            "opcion_invalida": "No se ingresó una acción disponible. Intente de nuevo."
+            "id_inexistente": "No se ingresó una ID disponible. Intente de nuevo.",
+            "no_entero": "No se ingresó un número entero. Intente de nuevo.",
+            "no_decimal": "No se ingresó un número decimal. Intente de nuevo.",
+            "no_booleano": "No se ingresó 'S' (sí) o 'N' (no). Intente de nuevo.",
+            "opcion_invalida": "No se ingresó una acción disponible. Intente de nuevo.",
+            "materia_agregada": "Se agregó la materia correctamente.",
+            "materia_eliminada": "Se eliminó la materia correctamente.",
+            "parcial_agregado": "Se agregó el parcial correctamente.",
+            "final_agregado": "Se agregó el final correctamente.",
+            "recuperatorio_agregado": "Se agregó/sobreescribió el recuperatorio correctamente.",
+            "base_borrada": "Se borraron todas las materias y sus notas."
         }
 
     @abstractmethod
@@ -15,6 +23,10 @@ class Interfaz_Output(ABC):
 
     @abstractmethod
     def mostrar_tabla(self, materias, persistencia, builder_determinador):
+        pass
+
+    @abstractmethod
+    def mostrar_notas(self, notas, recu=False, id=False):
         pass
 
     @abstractmethod

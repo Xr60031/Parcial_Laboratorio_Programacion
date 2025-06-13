@@ -1,6 +1,6 @@
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
 
-class Modificar_Valor_Nota(Accion):
+class Modificar_Final(Accion):
     def __init__(self, main, materia, id_nota):
         super().__init__(main)
         self.materia_seleccionada = materia
@@ -11,6 +11,6 @@ class Modificar_Valor_Nota(Accion):
         self.main.accion = Seleccionar(self.main, self.materia_seleccionada)
 
     def hacer_accion(self):
-        valor = self.main.interfaz_entrada.obtener_decimal("Nota del parcial")
-        self.main.persistencia.modificar_parcial(self.id_nota, "valor_nota", valor)
+        valor = self.main.interfaz_entrada.obtener_decimal("Nota del final")
+        self.main.persistencia.modificar_final(self.id_nota, "valor_nota", valor)
         self.cambiar_a_seleccionar()

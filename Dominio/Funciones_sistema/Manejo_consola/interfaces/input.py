@@ -9,5 +9,17 @@ class Interfaz_Input(ABC):
         pass
 
     @abstractmethod
+    def obtener_decimal(self, decimal_a_obtener):
+        pass
+
+    @abstractmethod
+    def obtener_cadena(self, cadena_a_obtener):
+        pass
+
+    @abstractmethod
+    def obtener_booleano(self, booleano_a_obtener):
+        pass
+
+    @abstractmethod
     def seleccionar_opcion(self, opciones_disponibles):
         pass

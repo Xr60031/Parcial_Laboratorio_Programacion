@@ -21,7 +21,7 @@ class Mostrar_Tabla(Accion):
     
     def buscar_materia(self, id_materia, materias):
         for materia in materias:
-            if materia.id_materia == int(id_materia):
+            if materia.id_materia == id_materia:
                 return materia
         return None
 
@@ -48,5 +48,4 @@ class Mostrar_Tabla(Accion):
         self.main.interfaz_salida.mostrar_tabla(self.materias, self.main.persistencia, self.main.builder_determinador)
 
         opcion_elegida = self.main.interfaz_entrada.seleccionar_opcion(self.ACCIONES_DISPONIBLES)
-
         opcion_elegida[0]()

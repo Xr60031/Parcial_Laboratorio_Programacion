@@ -5,10 +5,10 @@ class Modificar_Parcial(Accion):
         super().__init__(main)
         self.materia_seleccionada = materia
         self.parcial_seleccionado = id_nota
-        self.acciones_disponibles = {
-            "V": self.valor_nota_seleccionado,
-            "R": self.valor_recuperatorio_seleccionado,
-            "X": self.volver
+        self.OPCIONES_DISPONIBLES = {
+            "N": (self.valor_nota_seleccionado, "Nota original"),
+            "R": (self.valor_recuperatorio_seleccionado, "Nota del Recuperatorio"),
+            "X": (self.volver, "Volver")
         }
 
     def valor_nota_seleccionado(self):
@@ -24,7 +24,5 @@ class Modificar_Parcial(Accion):
         self.main.accion = Modificar(self.main, self.materia_seleccionada)
 
     def hacer_accion(self):
-        accion_elegida = self.main.cli.obtener_dato(
-            "Nota a modificar (V = Nota original, R = Nota del recuperatorio, X = Volver)"
-        )
-        self.acciones_disponibles[accion_elegida.upper()]()
+        opcion_elegida = self.main.interfaz_entrada.seleccionar_opcion(self.OPCIONES_DISPONIBLES)
+        opcion_elegida[0]()

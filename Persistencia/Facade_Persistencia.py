@@ -37,9 +37,9 @@ class Facade_Persistencia():
                     id_materia INTEGER PRIMARY KEY,
                     nombre_materia TEXT NOT NULL,
                     nombre_docente TEXT NOT NULL,
-                    nota_min_aprobar INTEGER NOT NULL,
+                    nota_min_aprobar REAL NOT NULL,
                     es_promocionable BOOLEAN NOT NULL,
-                    nota_min_promocion INTEGER,
+                    nota_min_promocion REAL,
                     cant_veces_final_rendible INTEGER NOT NULL,
                     cant_parciales INTEGER NOT NULL
                 )
@@ -53,8 +53,8 @@ class Facade_Persistencia():
                 CREATE TABLE Parcial (
                     id_nota INTEGER PRIMARY KEY,
                     id_materia INTEGER NOT NULL,
-                    valor_nota INTEGER NOT NULL,
-                    valor_recuperatorio INTEGER
+                    valor_nota REAL NOT NULL,
+                    valor_recuperatorio REAL
                 )
                 '''
             )
@@ -66,7 +66,7 @@ class Facade_Persistencia():
                 CREATE TABLE Final (
                     id_nota INTEGER PRIMARY KEY,
                     id_materia INTEGER NOT NULL,
-                    valor_nota INTEGER NOT NULL
+                    valor_nota REAL NOT NULL
                 )
                 '''
             )
