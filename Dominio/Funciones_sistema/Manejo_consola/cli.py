@@ -33,16 +33,16 @@ class CLI(Interfaz_Input, Interfaz_Output):
 
     def obtener_booleano(self, booleano_a_obtener):
         while True:
-            ingreso = input(f'{booleano_a_obtener} (S/N): ')
+            ingreso = input(f'{booleano_a_obtener} (S/N): ').upper()
             if ingreso == "S":
-                return True
+                return 1
             elif ingreso == "N":
-                return False
+                return 0
             else:
                 self.mostrar_advertencia("no_booleano")
     
     def seleccionar_opcion(self, opciones_disponibles):
-        print("-- Opciones disponibles --")
+        print("\t-- Opciones disponibles --")
         for opcion in opciones_disponibles:
             print(f"\t{opcion} => {opciones_disponibles[opcion][1]}")
         while True:
@@ -97,7 +97,7 @@ class CLI(Interfaz_Input, Interfaz_Output):
             print(
                 nota.id_nota if id else "",
                 nota.valor_nota,
-                nota.valor_recuperatorio if recu else "",
+                nota.valor_recuperatorio if recu and nota.valor_recuperatorio else "",
                 sep="\t"
             )
 
@@ -112,6 +112,8 @@ class CLI(Interfaz_Input, Interfaz_Output):
 
         print(f"Nota minima para Aprobar: {materia_seleccionada.nota_min_aprobar}")
 
+        print(f"¿Es promocionable?: {"Sí" if materia_seleccionada.es_promocionable else "No"}")
+        
         if materia_seleccionada.es_promocionable:
             print(f"Nota minima para Promocionar: {materia_seleccionada.nota_min_promocion}")
 
@@ -122,7 +124,7 @@ class CLI(Interfaz_Input, Interfaz_Output):
         parciales = persistencia.obtener_parciales(materia_seleccionada)
 
         if len(parciales) > 0:
-            print("-- PARCIALES --")
+            print("\t-- PARCIALES --")
             self.mostrar_notas(parciales, recu=True)
         else:
             print("No hay parciales registrados de esta materia.")
@@ -130,7 +132,7 @@ class CLI(Interfaz_Input, Interfaz_Output):
         finales = persistencia.obtener_finales(materia_seleccionada)
 
         if len(finales) > 0:
-            print("-- FINALES --")
+            print("\t-- FINALES --")
             self.mostrar_notas(finales)
         else:
             print("No hay finales registrados de esta materia.")
@@ -150,7 +152,7 @@ class CLI(Interfaz_Input, Interfaz_Output):
             print(f"Oportunidades de final restantes: {indicador.cantidad_finales_restante(finales, materia_seleccionada)}")
         elif estado_materia == Estado.APROBADO:
             print(f"Nota final de la materia: {finales[-1].valor_nota}")
-        elif estado_materia == Estado.APROBADO:
+        elif estado_materia == Estado.PROMOCIONADO:
             promedio = Promedio()
             print(f"Nota final de la materia: {promedio.operacion(parciales)}")
         

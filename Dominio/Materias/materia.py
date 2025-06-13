@@ -4,13 +4,7 @@ class Materia():
         self.nombre_materia = str(tupla[1])
         self.nombre_docente = str(tupla[2])
         self.nota_min_aprobar = float(tupla[3])
-        if type(tupla[4]) != bool:
-            if tupla[4] == "True":
-                self.es_promocionable = True
-            else:
-                self.es_promocionable = False
-        else:
-            self.es_promocionable = tupla[4]
+        self.es_promocionable = int(tupla[4])
         try:
             self.nota_min_promocion = float(tupla[5])
         except Exception:

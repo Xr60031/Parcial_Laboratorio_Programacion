@@ -9,6 +9,7 @@ class Interfaz_Output(ABC):
             "no_decimal": "No se ingresó un número decimal. Intente de nuevo.",
             "no_booleano": "No se ingresó 'S' (sí) o 'N' (no). Intente de nuevo.",
             "opcion_invalida": "No se ingresó una acción disponible. Intente de nuevo.",
+            "sin_notas": "No se encontraron notas.",
             "materia_agregada": "Se agregó la materia correctamente.",
             "materia_eliminada": "Se eliminó la materia correctamente.",
             "parcial_agregado": "Se agregó el parcial correctamente.",

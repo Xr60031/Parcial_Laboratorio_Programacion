@@ -10,7 +10,7 @@ class Borrar_Base(Accion):
 
     def hacer_accion(self):
         confirmacion = self.main.interfaz_entrada.obtener_booleano(
-            f"¿Estás seguro que querés eliminar la materia {self.materia_seleccionada.nombre_materia} y todos sus parciales/finales asociados?"
+            "¿Estás seguro que querés borrar toda la base?"
         )
 
         if confirmacion:

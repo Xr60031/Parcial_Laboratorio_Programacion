@@ -10,5 +10,5 @@ class Promedio(Funcion_Sin_Crierio):
             return 0
         suma_notas = 0
         for i in range(cant_notas):
-            suma_notas += notas[i].valor_notas
+            suma_notas += notas[i].valor_nota
         return suma_notas/cant_notas

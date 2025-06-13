@@ -28,9 +28,28 @@ class Modificar_Atributo(Accion):
     def booleano(self):
         return self.main.interfaz_entrada.obtener_booleano(self.atributo[1])
 
+    def buscar_materia(self, id_materia, materias):
+        for materia in materias:
+            if materia.id_materia == id_materia:
+                return materia
+        return None
+
     def modificar_atributo(self):
-        valor = self.TIPOS[self.atributo[2]]()
-        self.main.persistencia.modificar_materia(self.materia_seleccionada.id_materia, self.atributo, valor)
+        id_actual = self.materia_seleccionada.id_materia
+        unica = False
+        while not unica:
+            valor = self.TIPOS[self.atributo[2]]()
+            if self.atributo[0] == "id_materia":
+                materias = self.main.persistencia.obtener_materias()
+                if not self.buscar_materia(valor, materias):
+                    self.materia_seleccionada.id_materia = valor
+                    self.main.persistencia.mover_notas(id_actual, valor)
+                    unica = True
+                else:
+                    self.main.interfaz_salida.mostrar_advertencia("id_inexistente")
+            else:
+                unica = True
+        self.main.persistencia.modificar_materia(id_actual, self.atributo[0], valor)
 
     def hacer_accion(self):
         self.modificar_atributo()

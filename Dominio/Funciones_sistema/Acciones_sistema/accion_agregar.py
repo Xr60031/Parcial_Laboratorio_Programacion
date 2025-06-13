@@ -21,27 +21,44 @@ class Agregar(Accion):
             "bool": self.booleano
         }
     
-    def entero(self):
-        return self.main.interfaz_entrada.obtener_entero(self.atributo[1])
+    def entero(self, atributo):
+        return self.main.interfaz_entrada.obtener_entero(atributo[1])
     
-    def decimal(self):
-        return self.main.interfaz_entrada.obtener_decimal(self.atributo[1])
+    def decimal(self, atributo):
+        return self.main.interfaz_entrada.obtener_decimal(atributo[1])
     
-    def cadena(self):
-        return self.main.interfaz_entrada.obtener_cadena(self.atributo[1])
+    def cadena(self, atributo):
+        return self.main.interfaz_entrada.obtener_cadena(atributo[1])
     
-    def booleano(self):
-        return self.main.interfaz_entrada.obtener_booleano(self.atributo[1])
+    def booleano(self, atributo):
+        return self.main.interfaz_entrada.obtener_booleano(atributo[1])
 
     def cambiar_a_mostrar(self):
         from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar_tabla import Mostrar_Tabla
         self.main.accion = Mostrar_Tabla(self.main)
 
+    def buscar_materia(self, id_materia, materias):
+        for materia in materias:
+            if materia.id_materia == id_materia:
+                return materia
+        return None
+
     def hacer_accion(self):
         datos = []
 
-        for i in len(self.ATRIBUTOS):
-            dato = self.TIPOS[self.ATRIBUTOS[i][2]]()
+        materias = self.main.persistencia.obtener_materias()
+        unica = False
+        while not unica:
+            dato = self.TIPOS[self.ATRIBUTOS[0][2]](self.ATRIBUTOS[0])
+            if not self.buscar_materia(dato, materias):
+                unica = True
+            else:
+                self.main.interfaz_salida.mostrar_advertencia("id_inexistente")
+
+        datos.append(dato)
+
+        for i in range(1, len(self.ATRIBUTOS)):
+            dato = self.TIPOS[self.ATRIBUTOS[i][2]](self.ATRIBUTOS[i])
             datos.append(dato)
         
         nueva_materia = Materia(tuple(datos))

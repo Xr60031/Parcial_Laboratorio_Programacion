@@ -34,36 +34,44 @@ class Modificar(Accion):
     def modificar_parcial(self):
         notas = self.main.persistencia.obtener_parciales(self.materia_seleccionada)
 
-        self.main.interfaz_salida.mostrar_notas(notas, recu=True, id=True)
+        if len(notas) > 0:
+            self.main.interfaz_salida.mostrar_notas(notas, recu=True, id=True)
 
-        encontrada = False
-        while not encontrada:
-            id_elegida = self.main.interfaz_entrada.obtener_entero("ID")
-            nota_seleccionada = self.buscar_nota(id_elegida, notas)
-            if nota_seleccionada:
-                encontrada = True
-            else:
-                self.main.interfaz_salida.mostrar_advertencia("id_inexistente")
+            encontrada = False
+            while not encontrada:
+                id_elegida = self.main.interfaz_entrada.obtener_entero("ID")
+                nota_seleccionada = self.buscar_nota(id_elegida, notas)
+                if nota_seleccionada:
+                    encontrada = True
+                else:
+                    self.main.interfaz_salida.mostrar_advertencia("id_inexistente")
 
-        from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_parcial import Modificar_Parcial
-        self.main.accion = Modificar_Parcial(self.main, self.materia_seleccionada, id_elegida)
+            from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_parcial import Modificar_Parcial
+            self.main.accion = Modificar_Parcial(self.main, self.materia_seleccionada, id_elegida)
+        else:
+            self.main.interfaz_salida.mostrar_advertencia("sin_notas")
+            self.volver()
     
     def modificar_final(self):
         notas = self.main.persistencia.obtener_finales(self.materia_seleccionada)
 
-        self.main.interfaz_salida.mostrar_notas(notas, id=True)
+        if len(notas) > 0:
+            self.main.interfaz_salida.mostrar_notas(notas, id=True)
 
-        encontrada = False
-        while not encontrada:
-            id_elegida = self.main.interfaz_entrada.obtener_entero("ID")
-            nota_seleccionada = self.buscar_nota(id_elegida, notas)
-            if nota_seleccionada:
-                encontrada = True
-            else:
-                self.main.interfaz_salida.mostrar_advertencia("id_inexistente")
+            encontrada = False
+            while not encontrada:
+                id_elegida = self.main.interfaz_entrada.obtener_entero("ID")
+                nota_seleccionada = self.buscar_nota(id_elegida, notas)
+                if nota_seleccionada:
+                    encontrada = True
+                else:
+                    self.main.interfaz_salida.mostrar_advertencia("id_inexistente")
 
-        from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_final import Modificar_Final
-        self.main.accion = Modificar_Final(self.main, self.materia_seleccionada, id_elegida)
+            from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_final import Modificar_Final
+            self.main.accion = Modificar_Final(self.main, self.materia_seleccionada, id_elegida)
+        else:
+            self.main.interfaz_salida.mostrar_advertencia("sin_notas")
+            self.volver()
 
     def cambiar_a_modificar_atributo(self, atributo):
         from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_atributo import Modificar_Atributo
