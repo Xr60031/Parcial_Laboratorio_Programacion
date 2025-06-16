@@ -1,6 +1,6 @@
 from Persistencia.Facade_Persistencia import Facade_Persistencia
 from Dominio.Funciones_sistema.Logica_negocio.builder_determinador import Builder_Determinador
-from Dominio.Funciones_sistema.Manejo_consola.cli import CLI
+from Manejo_consola.cli import CLI
 from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar_tabla import Mostrar_Tabla
 
 class Main():

@@ -64,17 +64,17 @@ class TestDeterminadorEstado(unittest.TestCase):
     def test_regularizo_true(self):
         self.regularizado.operacion.return_value = True
         self.intentos_final.operacion.return_value = 1
-        self.assertTrue(self.det.regularizo(self.notas_parciales, self.materia))
+        self.assertTrue(self.det.regularizo(self.notas_parciales, self.notas_finales, self.materia))
 
     def test_regularizo_false_si_intentos_0(self):
         self.regularizado.operacion.return_value = True
         self.intentos_final.operacion.return_value = 0
-        self.assertFalse(self.det.regularizo(self.notas_parciales, self.materia))
+        self.assertFalse(self.det.regularizo(self.notas_parciales, self.notas_finales, self.materia))
 
     def test_regularizo_false_si_no_regulariza(self):
         self.regularizado.operacion.return_value = False
         self.intentos_final.operacion.return_value = 2
-        self.assertFalse(self.det.regularizo(self.notas_parciales, self.materia))
+        self.assertFalse(self.det.regularizo(self.notas_parciales, self.notas_finales, self.materia))
 
     def test_consultar_estado_cursando(self):
         self.minima_cant_parciales.operacion.return_value = False

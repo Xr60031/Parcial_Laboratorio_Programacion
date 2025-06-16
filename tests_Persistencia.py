@@ -49,7 +49,7 @@ class TestFacadePersistencia(unittest.TestCase):
 
     def test_modificar_materia(self):
         self.facade.agregar_materia(self.mock_materia)
-        self.facade.modificar_materia(1, "nombre_materia", "'Física'")
+        self.facade.modificar_materia(1, "nombre_materia", "Física")
         self.facade.cursor.execute("SELECT nombre_materia FROM Materia WHERE id_materia = 1")
         nombre = self.facade.cursor.fetchone()[0]
         self.assertEqual(nombre, "Física")
@@ -74,7 +74,7 @@ class TestFacadePersistencia(unittest.TestCase):
         finales = self.facade.obtener_finales(self.mock_materia)
         self.assertEqual(len(finales), 1)
 
-        self.facade.eliminar_final(1)
+        self.facade.eliminar_finales(1)
         finales = self.facade.obtener_finales(self.mock_materia)
         self.assertEqual(len(finales), 0)
 

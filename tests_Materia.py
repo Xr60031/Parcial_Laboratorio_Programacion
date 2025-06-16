@@ -33,7 +33,7 @@ class TestMateria(unittest.TestCase):
         self.assertEqual(self.materia.get_nota_min_aprobar(), 4.0)
         self.assertEqual(self.materia.get_es_promocionable(), True)
         self.assertEqual(self.materia.get_nota_min_promocion(), 7.0)
-        self.assertEqual(self.materia.get_cant_veces_rendible_final(), 3)
+        self.assertEqual(self.materia.get_cant_veces_final_rendible(), 3)
         self.assertEqual(self.materia.get_cant_parciales(), 2)
 
     def test_setters(self):
@@ -55,8 +55,8 @@ class TestMateria(unittest.TestCase):
         self.materia.set_nota_min_promocion(8.0)
         self.assertEqual(self.materia.get_nota_min_promocion(), 8.0)
 
-        self.materia.set_cant_veces_rendible_final(4)
-        self.assertEqual(self.materia.get_cant_veces_rendible_final(), 4)
+        self.materia.set_cant_veces_final_rendible(4)
+        self.assertEqual(self.materia.get_cant_veces_final_rendible(), 4)
 
         self.materia.set_cant_parciales(3)
         self.assertEqual(self.materia.get_cant_parciales(), 3)

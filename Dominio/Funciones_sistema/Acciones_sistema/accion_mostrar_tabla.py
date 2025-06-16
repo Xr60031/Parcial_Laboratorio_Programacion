@@ -26,17 +26,20 @@ class Mostrar_Tabla(Accion):
         return None
 
     def cambiar_a_seleccionar(self):
-        encontrada = False
-        while not encontrada:
-            id_elegida = self.main.interfaz_entrada.obtener_entero("ID")
-            materia_seleccionada = self.buscar_materia(id_elegida, self.materias)
-            if materia_seleccionada:
-                encontrada = True
-            else:
-                self.main.interfaz_salida.mostrar_advertencia("id_inexistente")
-        
-        from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
-        self.main.accion = Seleccionar(self.main, materia_seleccionada)
+        if len(self.materias) > 0: 
+            encontrada = False
+            while not encontrada:
+                id_elegida = self.main.interfaz_entrada.obtener_entero("ID")
+                materia_seleccionada = self.buscar_materia(id_elegida, self.materias)
+                if materia_seleccionada:
+                    encontrada = True
+                else:
+                    self.main.interfaz_salida.mostrar_advertencia("id_inexistente")
+            
+            from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
+            self.main.accion = Seleccionar(self.main, materia_seleccionada)
+        else:
+            self.main.interfaz_salida.mostrar_advertencia("sin_materias")
 
     def salir(self):
         self.main.persistencia.desconectar()
