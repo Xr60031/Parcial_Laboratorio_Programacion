@@ -7,7 +7,7 @@ class Agregar_Final(Accion):
         self.materia_seleccionada = materia
 
     def agregar_final(self, valor):
-        final = Final((None, self.materia_seleccionada.id_materia, valor))
+        final = Final((None, self.materia_seleccionada.get_id_materia(), valor))
         self.main.persistencia.agregar_final(final)
         self.main.interfaz_salida.mostrar_advertencia("final_agregado")
 

@@ -1,9 +1,12 @@
 from Manejo_consola.interfaces.input import Interfaz_Input
 from Manejo_consola.interfaces.output import Interfaz_Output
-from Dominio.Funciones_sistema.Calculos_notas.Con_Criterio.intentos_final import Intentos_Final_Restante
+from Dominio.Funciones_sistema.Calculos_notas.Evaluaciones.Cantidad_Finales_Menor_Max import Cantidad_Finales_Menor_Max
 from Dominio.Funciones_sistema.Logica_negocio.indicador_cantidad_finales_restantes import Indicador_Cantidad_Finales_Restantes
 from Dominio.Funciones_sistema.Logica_negocio.enum_estado import Estado
-from Dominio.Funciones_sistema.Calculos_notas.Sin_Criterio.promedio import Promedio
+from Dominio.Funciones_sistema.Calculos_notas.promedio import Promedio
+from Dominio.Funciones_sistema.Logica_negocio.determinador_estado import Determinador_Estado
+from Dominio.Materias.datos import Datos
+from Dominio.Materias.materia import Materia
 
 class CLI(Interfaz_Input, Interfaz_Output):
     def __init__(self):
@@ -55,7 +58,7 @@ class CLI(Interfaz_Input, Interfaz_Output):
     def mostrar_advertencia(self, id_advertencia):
         print(self.ADVERTENCIAS[id_advertencia])
     
-    def mostrar_tabla(self, materias, persistencia, builder_determinador):
+    def mostrar_tabla(self, materias: list[Materia], persistencia, builder_determinador):
         print("-------------------------------------------------")
         if len(materias) > 0:
             print(
@@ -70,10 +73,10 @@ class CLI(Interfaz_Input, Interfaz_Output):
                 finales = persistencia.obtener_finales(materia)
 
                 builder_determinador.construir()
-                determinador = builder_determinador.get_resultado()
+                determinador: Determinador_Estado = builder_determinador.get_resultado()
                 builder_determinador.reset()
 
-                estado_materia = determinador.consultar_estado(parciales, finales, materia)
+                estado_materia = determinador.consultar_estado(Datos(materia, parciales, finales))
 
                 print(
                     materia.get_id_materia(),
@@ -95,31 +98,31 @@ class CLI(Interfaz_Input, Interfaz_Output):
 
         for nota in notas:
             print(
-                nota.id_nota if id else "",
-                nota.valor_nota,
-                nota.valor_recuperatorio if recu and nota.valor_recuperatorio else "",
+                nota.get_id_nota() if id else "",
+                nota.get_valor_nota(),
+                nota.get_valor_recuperatorio() if recu and nota.get_valor_recuperatorio() else "",
                 sep="\t"
             )
 
-    def mostrar_info_materia(self, materia_seleccionada, persistencia, builder_determinador):
+    def mostrar_info_materia(self, materia_seleccionada: Materia, persistencia, builder_determinador):
         print("-------------------------------------------------")
 
-        print(f"ID: {materia_seleccionada.id_materia}")
+        print(f"ID: {materia_seleccionada.get_id_materia()}")
 
-        print(f"Materia: {materia_seleccionada.nombre_materia}")
+        print(f"Materia: {materia_seleccionada.get_nombre_materia()}")
 
-        print(f"Docente: {materia_seleccionada.nombre_docente}")
+        print(f"Docente: {materia_seleccionada.get_nombre_docente()}")
 
-        print(f"Nota minima para Aprobar: {materia_seleccionada.nota_min_aprobar}")
+        print(f"Nota minima para Aprobar: {materia_seleccionada.get_nota_min_aprobar()}")
 
-        print(f"¿Es promocionable?: {"Sí" if materia_seleccionada.es_promocionable else "No"}")
+        print(f"¿Es promocionable?: {"Sí" if materia_seleccionada.get_es_promocionable() else "No"}")
         
-        if materia_seleccionada.es_promocionable:
-            print(f"Nota minima para Promocionar: {materia_seleccionada.nota_min_promocion}")
+        if materia_seleccionada.get_es_promocionable():
+            print(f"Nota minima para Promocionar: {materia_seleccionada.get_nota_min_promocion()}")
 
-        print(f"Cantidad de oportunidades de final: {materia_seleccionada.cant_veces_final_rendible}")
+        print(f"Cantidad de oportunidades de final: {materia_seleccionada.get_cant_veces_final_rendible()}")
 
-        print(f"Cantidad de Parciales: {materia_seleccionada.cant_parciales}")
+        print(f"Cantidad de Parciales: {materia_seleccionada.get_cant_parciales()}")
 
         parciales = persistencia.obtener_parciales(materia_seleccionada)
 
@@ -140,20 +143,20 @@ class CLI(Interfaz_Input, Interfaz_Output):
         print("----------")
 
         builder_determinador.construir()
-        determinador = builder_determinador.get_resultado()
+        determinador: Determinador_Estado = builder_determinador.get_resultado()
         builder_determinador.reset()
 
-        estado_materia = determinador.consultar_estado(parciales, finales, materia_seleccionada)
+        estado_materia = determinador.consultar_estado(Datos(materia_seleccionada, parciales, finales))
 
         print(f"ESTADO: {estado_materia.name}")
 
         if estado_materia == Estado.REGULARIZADO:
-            indicador = Indicador_Cantidad_Finales_Restantes(Intentos_Final_Restante())
+            indicador = Indicador_Cantidad_Finales_Restantes(Cantidad_Finales_Menor_Max())
             print(f"Oportunidades de final restantes: {indicador.cantidad_finales_restante(finales, materia_seleccionada)}")
         elif estado_materia == Estado.APROBADO:
             print(f"Nota final de la materia: {finales[-1].valor_nota}")
         elif estado_materia == Estado.PROMOCIONADO:
             promedio = Promedio()
-            print(f"Nota final de la materia: {promedio.operacion(parciales)}")
+            print(f"Nota final de la materia: {promedio.promediar(parciales)}")
         
         print("-------------------------------------------------")

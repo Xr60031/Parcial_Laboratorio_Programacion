@@ -4,7 +4,7 @@ class Interfaz_Output(ABC):
     def __init__(self):
         super().__init__()
         self.ADVERTENCIAS = {
-            "id_inexistente": "No se ingresó una ID disponible. Intente de nuevo.",
+            "id_no_disponible": "No se ingresó una ID disponible. Intente de nuevo.",
             "no_entero": "No se ingresó un número entero. Intente de nuevo.",
             "no_decimal": "No se ingresó un número decimal. Intente de nuevo.",
             "no_booleano": "No se ingresó 'S' (sí) o 'N' (no). Intente de nuevo.",
