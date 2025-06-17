@@ -1,9 +1,10 @@
 from Dominio.Funciones_sistema.Acciones_sistema.accion import Accion
+from Dominio.Materias.materia import Materia
 
 class Seleccionar(Accion):
-    def __init__(self, main, materia):
+    def __init__(self, main, materia: Materia):
         super().__init__(main)
-        self.materia_seleccionada = materia
+        self.materia_seleccionada: Materia = materia
         self.ACCIONES_DISPONIBLES = {
             "A": (self.cambiar_a_agregar_nota, "Agregar nota"),
             "M": (self.cambiar_a_modificar, "Modificar materia"),
@@ -27,16 +28,16 @@ class Seleccionar(Accion):
         from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar_tabla import Mostrar_Tabla
         self.main.accion = Mostrar_Tabla(self.main)
 
-    def buscar_materia(self, id_materia, materias):
+    def buscar_materia(self, id_materia, materias: list[Materia]) -> Materia:
         for materia in materias:
-            if materia.id_materia == id_materia:
+            if materia.get_id_materia() == id_materia:
                 return materia
-        return None
+        return self.materia_seleccionada
 
     def hacer_accion(self):
         materias = self.main.persistencia.obtener_materias()
 
-        self.materia_seleccionada = self.buscar_materia(self.materia_seleccionada.id_materia, materias)
+        self.materia_seleccionada: Materia = self.buscar_materia(self.materia_seleccionada.get_id_materia(), materias)
 
         self.main.interfaz_salida.mostrar_info_materia(self.materia_seleccionada, self.main.persistencia, self.main.builder_determinador)
 

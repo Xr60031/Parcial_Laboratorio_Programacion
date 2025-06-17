@@ -7,7 +7,7 @@ class Agregar_Parcial(Accion):
         self.materia_seleccionada = materia
 
     def agregar_parcial(self, valor):
-        parcial = Parcial((None, self.materia_seleccionada.id_materia, valor))
+        parcial = Parcial((None, self.materia_seleccionada.get_id_materia(), valor))
         self.main.persistencia.agregar_parcial(parcial)
         self.main.interfaz_salida.mostrar_advertencia("parcial_agregado")
 

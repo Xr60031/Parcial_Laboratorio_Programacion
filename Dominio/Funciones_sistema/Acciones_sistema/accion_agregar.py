@@ -39,7 +39,7 @@ class Agregar(Accion):
 
     def buscar_materia(self, id_materia, materias):
         for materia in materias:
-            if materia.id_materia == id_materia:
+            if materia.get_id_materia() == id_materia:
                 return materia
         return None
 
@@ -53,7 +53,7 @@ class Agregar(Accion):
             if not self.buscar_materia(dato, materias):
                 unica = True
             else:
-                self.main.interfaz_salida.mostrar_advertencia("id_inexistente")
+                self.main.interfaz_salida.mostrar_advertencia("id_no_disponible")
 
         datos.append(dato)
 

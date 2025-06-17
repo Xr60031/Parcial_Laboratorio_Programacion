@@ -5,7 +5,6 @@ from Dominio.Funciones_sistema.Acciones_sistema.accion_mostrar_tabla import Most
 
 class Main():
     def __init__(self):
-        self
         self.persistencia = Facade_Persistencia()
         self.builder_determinador = Builder_Determinador()
         self.interfaz_entrada = CLI()

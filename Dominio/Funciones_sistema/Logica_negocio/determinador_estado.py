@@ -1,56 +1,41 @@
 from Dominio.Funciones_sistema.Logica_negocio.enum_estado import Estado
+from Dominio.Funciones_sistema.Calculos_notas.evaluacion import Evaluacion
+from Dominio.Materias.datos import Datos
+from typing import Sequence
 
 """
--> Se quiere saber el estado de X materia
--> Calculador(Materia -> Criterio, notas parciales, notas finales)
--> Funciones con criterio para determinar el estado de la materia
--> Minma cant parciales (1 - Para saber si esta cursando -> False = Cursando
--> Desaprobadas con recuperatorio (2 True = Cursando
--> Promociona (3 True = Promocionado
--> Aprobado (4 True = Aprobó
--> Regularizado (5 True = Regularizado
--> Intentos_Final (6 0 = Desaprobado
-
-
-Funcion para finales
--> Intentos_Final (1
+Cursando: Faltan_Notas_Parcial_o_Recuperatorio
+Promocionado: Materia_Es_Promocionable, Todos_Parciales_Mayor_o_Igual_Promocion
+Aprobado: Algun_Final_Aprobado
+Regularizado: Todos_Parciales_o_Recuperatorio_Aprobados, Cantidad_Finales_Menor_Max
+Desaprobado: else
 """
 
 class Determinador_Estado():
-    def __init__(self, 
-            aprobado = None, 
-            desaprobadas_sin_recuperatorio = None, 
-            promociona = None,
-            intentos_final_restante = None,
-            regularizado = None,
-            minima_cantidad_parciales = None):
-        self.aprobado = aprobado
-        self.desaprobadas_sin_recuperatorio = desaprobadas_sin_recuperatorio
-        self.promociona = promociona
-        self.intentos_final = intentos_final_restante
-        self.regularizado = regularizado
-        self.minima_cant_parciales = minima_cantidad_parciales
+    def __init__(self,
+                evaluaciones_cursando: Sequence[Evaluacion],
+                evaluaciones_promociono: Sequence[Evaluacion],
+                evaluaciones_aprobo: Sequence[Evaluacion],
+                evaluaciones_regularizo: Sequence[Evaluacion]):
+        self.__evaluaciones_cursando: list[Evaluacion] = list(evaluaciones_cursando)
+        self.__evaluaciones_promociono: list[Evaluacion] = list(evaluaciones_promociono)
+        self.__evaluaciones_aprobo: list[Evaluacion] = list(evaluaciones_aprobo)
+        self.__evaluaciones_regularizo: list[Evaluacion] = list(evaluaciones_regularizo)
 
-    def esta_cursando(self, notas_parciales, materia):
-        return not self.minima_cant_parciales.operacion(notas_parciales, materia.cant_parciales) or self.desaprobadas_sin_recuperatorio.operacion(notas_parciales, materia.nota_min_aprobar)
-
-    def promociono(self, notas_parciales, materia):
-        return materia.es_promocionable and self.promociona.operacion(notas_parciales, materia.nota_min_promocion)
-
-    def aprobo(self, notas_finales, materia):
-        return self.aprobado.operacion(notas_finales, materia.nota_min_aprobar)
+    def __evaluar_serie(self, evaluaciones: list[Evaluacion], datos: Datos) -> bool:
+        for evaluacion in evaluaciones:
+            if not evaluacion.evaluar(datos):
+                return False
+        return True
     
-    def regularizo(self, notas_parciales, notas_finales, materia):
-        return self.regularizado.operacion(notas_parciales, materia.nota_min_aprobar) and self.intentos_final.operacion(notas_finales, materia.cant_veces_final_rendible) > 0
-    
-    def consultar_estado(self, notas_parciales, notas_finales, materia):
-        if(self.esta_cursando(notas_parciales, materia)):
+    def consultar_estado(self, datos) -> Estado:
+        if self.__evaluar_serie(self.__evaluaciones_cursando, datos):
             return Estado.CURSANDO
-        elif(self.promociono(notas_parciales, materia)):
+        elif self.__evaluar_serie(self.__evaluaciones_promociono, datos):
             return Estado.PROMOCIONADO
-        elif(self.aprobo(notas_finales, materia)):
+        elif self.__evaluar_serie(self.__evaluaciones_aprobo, datos):
             return Estado.APROBADO
-        elif(self.regularizo(notas_parciales, notas_finales, materia)):
+        elif self.__evaluar_serie(self.__evaluaciones_regularizo, datos):
             return Estado.REGULARIZADO
         else:
             return Estado.DESAPROBADO

@@ -21,7 +21,7 @@ class Mostrar_Tabla(Accion):
     
     def buscar_materia(self, id_materia, materias):
         for materia in materias:
-            if materia.id_materia == id_materia:
+            if materia.get_id_materia() == id_materia:
                 return materia
         return None
 
@@ -33,11 +33,10 @@ class Mostrar_Tabla(Accion):
                 materia_seleccionada = self.buscar_materia(id_elegida, self.materias)
                 if materia_seleccionada:
                     encontrada = True
+                    from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
+                    self.main.accion = Seleccionar(self.main, materia_seleccionada)
                 else:
-                    self.main.interfaz_salida.mostrar_advertencia("id_inexistente")
-            
-            from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
-            self.main.accion = Seleccionar(self.main, materia_seleccionada)
+                    self.main.interfaz_salida.mostrar_advertencia("id_no_disponible")
         else:
             self.main.interfaz_salida.mostrar_advertencia("sin_materias")
 

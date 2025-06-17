@@ -5,9 +5,9 @@ class Eliminar(Accion):
         super().__init__(main)
         self.materia_seleccionada = materia
     
-    def volver(self, id_materia_elegida, materias):
+    def volver(self):
         from Dominio.Funciones_sistema.Acciones_sistema.accion_seleccionar import Seleccionar
-        self.main.accion = Seleccionar(self.main, materias[id_materia_elegida])
+        self.main.accion = Seleccionar(self.main, self.materia_seleccionada)
 
     def eliminar_y_mostrar_tabla(self, ID_materia_seleccionada):
         self.main.persistencia.eliminar_materia(ID_materia_seleccionada)
@@ -17,10 +17,10 @@ class Eliminar(Accion):
 
     def hacer_accion(self):
         confirmacion = self.main.interfaz_entrada.obtener_booleano(
-            f"¿Estás seguro que querés eliminar la materia {self.materia_seleccionada.nombre_materia} y todos sus parciales/finales asociados?"
+            f"¿Estás seguro que querés eliminar la materia {self.materia_seleccionada.get_nombre_materia()} y todos sus parciales/finales asociados?"
         )
 
         if confirmacion:
-            self.eliminar_y_mostrar_tabla(self.materia_seleccionada.id_materia)
+            self.eliminar_y_mostrar_tabla(self.materia_seleccionada.get_id_materia())
         else:
             self.volver()

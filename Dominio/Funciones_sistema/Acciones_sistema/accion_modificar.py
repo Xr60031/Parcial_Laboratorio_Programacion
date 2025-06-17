@@ -27,7 +27,7 @@ class Modificar(Accion):
 
     def buscar_nota(self, id_nota, notas):
         for nota in notas:
-            if nota.id_nota == id_nota:
+            if nota.get_id_nota() == id_nota:
                 return nota
         return None
 
@@ -44,7 +44,7 @@ class Modificar(Accion):
                 if nota_seleccionada:
                     encontrada = True
                 else:
-                    self.main.interfaz_salida.mostrar_advertencia("id_inexistente")
+                    self.main.interfaz_salida.mostrar_advertencia("id_no_disponible")
 
             from Dominio.Funciones_sistema.Acciones_sistema.accion_modificar_parcial import Modificar_Parcial
             self.main.accion = Modificar_Parcial(self.main, self.materia_seleccionada, id_elegida)

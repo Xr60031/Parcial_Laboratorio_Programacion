@@ -30,23 +30,23 @@ class Modificar_Atributo(Accion):
 
     def buscar_materia(self, id_materia, materias):
         for materia in materias:
-            if materia.id_materia == id_materia:
+            if materia.get_id_materia() == id_materia:
                 return materia
         return None
 
     def modificar_atributo(self):
-        id_actual = self.materia_seleccionada.id_materia
+        id_actual = self.materia_seleccionada.get_id_materia()
         unica = False
         while not unica:
             valor = self.TIPOS[self.atributo[2]]()
             if self.atributo[0] == "id_materia":
                 materias = self.main.persistencia.obtener_materias()
                 if not self.buscar_materia(valor, materias):
-                    self.materia_seleccionada.id_materia = valor
+                    self.materia_seleccionada.set_id_materia(valor)
                     self.main.persistencia.mover_notas(id_actual, valor)
                     unica = True
                 else:
-                    self.main.interfaz_salida.mostrar_advertencia("id_inexistente")
+                    self.main.interfaz_salida.mostrar_advertencia("id_no_disponible")
             else:
                 unica = True
         self.main.persistencia.modificar_materia(id_actual, self.atributo[0], valor)
