@@ -29,13 +29,14 @@ class Determinador_Estado():
         return True
     
     def consultar_estado(self, datos) -> Estado:
-        if self.__evaluar_serie(self.__evaluaciones_cursando, datos):
-            return Estado.CURSANDO
-        elif self.__evaluar_serie(self.__evaluaciones_promociono, datos):
+        if self.__evaluar_serie(self.__evaluaciones_promociono, datos):
             return Estado.PROMOCIONADO
         elif self.__evaluar_serie(self.__evaluaciones_aprobo, datos):
             return Estado.APROBADO
         elif self.__evaluar_serie(self.__evaluaciones_regularizo, datos):
             return Estado.REGULARIZADO
+        elif self.__evaluar_serie(self.__evaluaciones_cursando, datos):
+            return Estado.CURSANDO
         else:
             return Estado.DESAPROBADO
+

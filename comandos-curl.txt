@@ -1,0 +1,12 @@
+
+agregar una materia: (cambia el id cada vez que se agrega)
+curl -X POST http://localhost:5000/materias -H "Content-Type: application/json" -d "{\"id\":21,\"nombre\":\"labo\",\"docente\":\"AAA\",\"nota_min_aprobar\":6,\"es_promocionable\":true,\"nota_min_promocion\":8,\"cant_veces_final_rendible\":3,\"cant_parciales\":2}"
+
+consultar estado: (el numero del final es el id)
+curl http://localhost:5000/materias/1
+
+agregar parcial/final/recuperatorio (cambiar tipo segun lo que necesites):
+curl -X POST http://localhost:5000/materias/1/notas -H "Content-Type: application/json" -d "{\"tipo\":\"parcial\", \"nota\": 8.5}"    
+
+eliminar materia:
+curl -X DELETE http://localhost:5000/materias/1

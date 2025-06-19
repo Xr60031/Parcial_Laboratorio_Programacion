@@ -16,8 +16,9 @@ class Facade_Persistencia():
         os.makedirs(db_folder, exist_ok=True)  # Asegura que la carpeta exista
 
         db_path = os.path.join(db_folder, 'plantilla.db')
-        self.conn = sqlite3.connect(db_path)
+        self.conn = sqlite3.connect(db_path, check_same_thread=False)
         self.cursor = self.conn.cursor()
+
 
     def desconectar(self):
         self.conn.close()
